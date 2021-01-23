@@ -8,10 +8,12 @@ import VueSimpleAlert from "vue-simple-alert";
 Vue.use(VueSimpleAlert);
 // Vue.component('verificar', require('./components/verificar.vue').default);
 import contribuyente from './components/contribuyente';
+import modcontrib from './components/modcontrib';
 import home from './components/ExampleComponent';
 const routes = [
     { path: '/home', component: home },
     { path: '/contribuyente', component: contribuyente },
+    { path: '/buscar', component: modcontrib },
 ]
 
 const router = new VueRouter({

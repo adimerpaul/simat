@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cont;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContController extends Controller
 {
@@ -77,9 +78,13 @@ class ContController extends Controller
      * @param  \App\Models\Cont  $cont
      * @return \Illuminate\Http\Response
      */
-    public function show(Cont $cont)
+    public function show( $comun,$tipodocumen)
     {
         //
+        $comun=$comun;
+        $tipodocum=$tipodocumen;
+        return Cont::where('comun',$comun)->where('tipodocum',$tipodocum)->get(); 
+
     }
 
     /**
@@ -91,6 +96,7 @@ class ContController extends Controller
     public function edit(Cont $cont)
     {
         //
+
     }
 
     /**
@@ -100,9 +106,33 @@ class ContController extends Controller
      * @param  \App\Models\Cont  $cont
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cont $cont)
+    public function update(Request $request,$comun1)
     {
         //
+        $comun=$request->comun;
+        $tipodocum=$request->tipodocum;
+        //$cont=Cont::where('comun',$comun)->where('tipodocum',$tipodocum)->get();  
+
+        $cont=array(
+       
+        'comun'=>$request->comun,
+        'tipodocum'=>$request->tipodocum,
+        'expedido'=>$request->expedido,
+        'paterno'=>$request->paterno,
+        'materno'=>$request->materno,
+        'nombre'=>$request->nombre,
+        'cod_ham'=>$request->cod_ham,
+        'cod_barrio'=>$request->cod_barrio,
+        'tipocalle'=>$request->tipocalle,
+        'nombrecall'=>$request->nombrecall,
+        'numcasa'=>$request->numcasa,
+        'telefono'=>$request->telefono,
+        'descrip'=>$request->descrip,
+        'nacimient'=>$request->nacimient);
+        DB::table('pm01cont')
+        ->where('comun',$comun)
+        ->where('tipodocum',$tipodocum)
+        ->update($cont);
     }
 
     /**
