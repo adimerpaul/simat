@@ -9,10 +9,12 @@ Vue.use(VueSimpleAlert);
 // Vue.component('verificar', require('./components/verificar.vue').default);
 import contribuyente from './components/contribuyente';
 import modcontrib from './components/modcontrib';
+import inmueble from './components/inmueble';
 import home from './components/ExampleComponent';
 const routes = [
     { path: '/home', component: home },
     { path: '/contribuyente', component: contribuyente },
+    { path: '/inmuebles', component: inmueble },
     { path: '/buscar', component: modcontrib },
 ]
 

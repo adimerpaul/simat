@@ -29,13 +29,13 @@
                                 <div class="form-group col-md-2">
                                     <label for="tipodocumento">Tipo documento</label>
                                     <!--                                    <input type="text" class="form-control" id="tipodocumento" placeholder="Tipo Documento">-->
-                                    <select name="tipodocumento" id="tipodocumento" class="form-control" required v-model="dato.tipodocum">
+                                    <select name="tipodocumento" id="tipodocumento" class="form-control" required v-model="dato.tipodocum" disabled>
                                         <option value="1">Carnet identidad</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="ci">Carnet de identidad</label>
-                                    <input type="text" class="form-control" id="ci" placeholder="Carnet de identidad" required v-model="dato.comun">
+                                    <input type="text" class="form-control" id="ci" placeholder="Carnet de identidad" required v-model="dato.comun" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="expedido">Expedido</label>
@@ -62,11 +62,19 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="cod_ham">cod_ham</label>
-                                    <input type="text" class="form-control" id="cod_ham" placeholder="cod_ham" v-model="dato.cod_ham">
+                                    <select  class="form-control" v-model="dato.cod_ham"  name="cod_ham" id="cod_ham" required>
+                                        <option v-for="i in ham" v-bind:value="i.codigo">
+                                            {{i.alcaldia}}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="cod_barrio">cod_barrio</label>
-                                    <input type="text" class="form-control" id="cod_barrio" placeholder="cod_barrio" v-model="dato.cod_barrio">
+                                    <select  class="form-control" v-model="dato.cod_barrio"  name="cod_barrio" id="cod_barrio" required>
+                                        <option v-for="f in barrio" v-bind:value="f.codigo">
+                                            {{f.barrio}}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="tipocalle">tipocalle</label>
@@ -100,8 +108,19 @@ export default {
         data:function(){
             return {
                 dato:{},
-                dato2:{}
+                dato2:{},
+                barrio:[],
+                ham:[],
             }
+        },
+        mounted() {
+            // console.log('Component mounted.');
+            axios.get('/cbarrio').then(res=>{
+                this.barrio=res.data;
+            });
+            axios.get('/cham').then(res=>{
+                this.ham=res.data;
+            });
         },
         methods:{
             cargar(){

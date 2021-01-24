@@ -24,9 +24,15 @@ Route::get('/buscar', function () {
     return view('home');
 })->middleware('auth');
 
+Route::get('/inmueble', function () {
+    return view('home');
+})->middleware('auth');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/guardar', [App\Http\Controllers\ContController::class, 'store'])->name('home');
 Route::get('/cont/{comun}/{tipo}', [App\Http\Controllers\ContController::class, 'show'])->name('home');
+Route::get('/cbarrio', [App\Http\Controllers\ContController::class, 'codbarrio'])->name('home');
+Route::get('/cham', [App\Http\Controllers\ContController::class, 'codham'])->name('home');
 Route::post('/modifica/{comun}', [App\Http\Controllers\ContController::class, 'update'])->name('home');
