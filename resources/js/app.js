@@ -14,7 +14,7 @@ import home from './components/ExampleComponent';
 const routes = [
     { path: '/home', component: home },
     { path: '/contribuyente', component: contribuyente },
-    { path: '/inmuebles', component: inmueble },
+    { path: '/inmueble', component: inmueble },
     { path: '/buscar', component: modcontrib },
 ]
 

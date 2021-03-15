@@ -2071,7 +2071,243 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      dato: {},
+      dato2: {},
+      completo: '',
+      direc: '',
+      inm: [],
+      barrio: [],
+      ham: [],
+      zona: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // console.log('Component mounted.');
+    axios.get('/cbarrio').then(function (res) {
+      _this.barrio = res.data;
+    });
+    axios.get('/cham').then(function (res) {
+      _this.ham = res.data;
+    });
+    axios.get('/zona').then(function (res) {
+      _this.zona = res.data;
+    });
+  },
+  methods: {
+    buscar: function buscar() {
+      var _this2 = this;
+
+      axios.get('/buscar/' + this.dato2.comun).then(function (res) {
+        console.log(res.data);
+        _this2.dato = res.data[0];
+        _this2.completo = res.data[0].nombre + ' ' + res.data[0].paterno + ' ' + res.data[0].materno;
+        _this2.direc = res.data[0].descrip;
+
+        _this2.listar();
+      });
+    },
+    listar: function listar() {
+      var _this3 = this;
+
+      axios.get('/inm/' + this.dato2.comun).then(function (res) {
+        console.log(res.data);
+        _this3.inm = res.data;
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2287,7 +2523,7 @@ var routes = [{
   path: '/contribuyente',
   component: _components_contribuyente__WEBPACK_IMPORTED_MODULE_3__.default
 }, {
-  path: '/inmuebles',
+  path: '/inmueble',
   component: _components_inmueble__WEBPACK_IMPORTED_MODULE_5__.default
 }, {
   path: '/buscar',
@@ -41524,151 +41760,749 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", [_vm._v("INMUEBLES DEL CONTRIBUYENTE")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        attrs: { action: "" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.buscar($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "form-group row  " }, [
+          _c("label", { staticClass: "form-label", attrs: { for: "comun" } }, [
+            _vm._v("CI/RUN")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-5" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.dato2.comun,
+                  expression: "dato2.comun"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", id: "comun", required: "" },
+              domProps: { value: _vm.dato2.comun },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.dato2, "comun", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "nomb" } }, [
+        _vm._v("Nombre")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.completo,
+              expression: "completo"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", id: "nomb", readonly: "" },
+          domProps: { value: _vm.completo },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.completo = $event.target.value
+            }
+          }
+        }),
+        _c("br")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "direc" } }, [
+        _vm._v("Direccion")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.direc,
+              expression: "direc"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", id: "direc", readonly: "" },
+          domProps: { value: _vm.direc },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.direc = $event.target.value
+            }
+          }
+        }),
+        _c("br")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "lista" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#exampleModal"
+          }
+        },
+        [_vm._v("\n            Nuevo\n        ")]
+      ),
+      _vm._v(" "),
+      _c("table", { staticClass: "table" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.inm, function(i, index) {
+            return _c("tr", { key: index }, [
+              _c("td", [_vm._v(_vm._s(i.cantidad))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(i.flag_inmu))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(i.descrip))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(i.superficie))])
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("hr")
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade bd-example-modal-lg",
+        attrs: {
+          id: "exampleModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "zona" } },
+                      [_vm._v("Zona")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "form-control",
+                        attrs: { id: "zona", required: "" }
+                      },
+                      [
+                        _c("option", { attrs: { selected: "" } }, [
+                          _vm._v("Seleccionar")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.zona, function(z) {
+                          return _c("option", { domProps: { value: z.zona } }, [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(z.descrip) +
+                                "\n                    "
+                            )
+                          ])
+                        })
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "barrio" } },
+                      [_vm._v("Barrio")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        staticClass: "form-control",
+                        attrs: { id: "barrio", required: "" }
+                      },
+                      [
+                        _c("option", { attrs: { selected: "" } }, [
+                          _vm._v("Seleccionar")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.barrio, function(b) {
+                          return _c(
+                            "option",
+                            { domProps: { value: b.codigo } },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(b.barrio) +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _vm._m(6),
+                _vm._v(" "),
+                _vm._m(7),
+                _vm._v(" "),
+                _vm._m(8),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm._m(9),
+                _vm._v(" "),
+                _vm._m(10),
+                _vm._v(" "),
+                _c("h5", [_vm._v("Datos de Construccion")]),
+                _vm._v(" "),
+                _vm._m(11)
+              ]),
+              _vm._v(" "),
+              _vm._m(12)
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("INMUEBLES DEL CONTRIBUYENTE")]),
-      _vm._v(" "),
-      _c("form", [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("label", { staticClass: "form-label", attrs: { for: "tipo" } }, [
-              _vm._v("TIPO")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "form-control",
-                attrs: { id: "tipo", required: "" }
-              },
-              [
-                _c("option", { attrs: { value: "" } }, [_vm._v("Selecionar")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1" } }, [_vm._v("NATURAL")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("JURIDICA")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "3" } }, [_vm._v("INDIVISA")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("label", { staticClass: "form-label", attrs: { for: "zona" } }, [
-              _vm._v("Zona")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "form-control",
-                attrs: { id: "zona", required: "" }
-              },
-              [
-                _c("option", { attrs: { selected: "" } }, [
-                  _vm._v("Seleccionar")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1" } }, [_vm._v("1A")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c(
-              "label",
-              { staticClass: "form-label", attrs: { for: "barrio" } },
-              [_vm._v("Barrio")]
-            ),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "form-control",
-                attrs: { id: "barrio", required: "" }
-              },
-              [
-                _c("option", { attrs: { selected: "" } }, [
-                  _vm._v("Seleccionar")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1" } }, [_vm._v("1A")])
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _c(
-              "label",
-              { staticClass: "form-label", attrs: { for: "tipocalle" } },
-              [_vm._v("Tipo Calle")]
-            ),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "form-control",
-                attrs: { id: "tipocalle", required: "" }
-              },
-              [
-                _c("option", { attrs: { selected: "" } }, [
-                  _vm._v("Seleccionar")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "CA" } }, [_vm._v("CALLE")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "AV" } }, [_vm._v("AVENIDA")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "PL" } }, [_vm._v("PLAZA")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "PJ" } }, [_vm._v("PASAJE")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c(
-              "label",
-              { staticClass: "form-label", attrs: { for: "ncalle" } },
-              [_vm._v("Nombre Calle")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", id: "ncalle", required: "" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c(
-            "label",
-            { staticClass: "form-label", attrs: { for: "direccion" } },
-            [_vm._v("Direccion")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", id: "direccion", required: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("Registrar")]
-          )
-        ])
+    return _c("div", { staticClass: "col-md-5" }, [
+      _c("button", { staticClass: "btn btn-info", attrs: { type: "submit" } }, [
+        _vm._v("Buscar")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("numero")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Cont")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Ubicacion")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Superficie")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Registro de Inmueble")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "tipocont" } }, [
+          _vm._v("TIPO")
+        ]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { id: "tipocont", required: "" }
+          },
+          [
+            _c("option", { attrs: { value: "1", selected: "" } }, [
+              _vm._v("NATURAL")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2" } }, [_vm._v("JURIDICA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3" } }, [_vm._v("INDIVISA")])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "tipoin" } }, [
+          _vm._v("INMUEBLE")
+        ]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { id: "tipoin", required: "" }
+          },
+          [
+            _c("option", { attrs: { value: "1", selected: "" } }, [
+              _vm._v("CASA")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2" } }, [_vm._v("LOTE")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3" } }, [_vm._v("DEPTO")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "4" } }, [_vm._v("P. RURAL")])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "tipocalle" } }, [
+        _vm._v("Tipo Calle")
+      ]),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          staticClass: "form-control",
+          attrs: { id: "tipocalle", required: "" }
+        },
+        [
+          _c("option", { attrs: { selected: "" } }, [_vm._v("Seleccionar")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "CA" } }, [_vm._v("CALLE")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "AV" } }, [_vm._v("AVENIDA")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "PL" } }, [_vm._v("PLAZA")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "PJ" } }, [_vm._v("PASAJE")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "ncalle" } }, [
+          _vm._v("Nombre Calle")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "ncalle", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "numero" } }, [
+          _vm._v("Numero")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "numero", required: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c(
+          "label",
+          { staticClass: "form-label", attrs: { for: "direccion" } },
+          [_vm._v("Direccion")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "direccion", required: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "bloque" } }, [
+          _vm._v("bloque")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "bloque", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "bloque" } }, [
+          _vm._v("bloque")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "bloque", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "numdpto" } }, [
+          _vm._v("numdpto")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "numdpto", required: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "distrito" } }, [
+          _vm._v("Distrito")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "distrito", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "manzano" } }, [
+          _vm._v("manzano")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "manzano", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "lote" } }, [
+          _vm._v("lote")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "lote", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "sublote" } }, [
+          _vm._v("sublote")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "sublote", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "material" } }, [
+          _vm._v("Material calle")
+        ]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { id: "material", required: "" }
+          },
+          [
+            _c("option", { attrs: { selected: "" } }, [_vm._v("Seleccionar")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "CA" } }, [_vm._v("ASFALTO")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "AV" } }, [_vm._v("ADOQUIN")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "PL" } }, [_vm._v("CEMENTO")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "PJ" } }, [_vm._v("LOSETA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "PJ" } }, [_vm._v("PIEDRA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "PJ" } }, [_vm._v("RIPIO")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "PJ" } }, [_vm._v("TIERRA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "PJ" } }, [_vm._v("LADRILLO")])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", {}, [
+      _c("h5", [_vm._v("Servicios")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check form-check-inline" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { type: "checkbox", id: "luz", value: "luz1" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "luz" } },
+          [_vm._v("LUZ")]
+        )
+      ]),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check form-check-inline" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { type: "checkbox", id: "agua", value: "agua1" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "agua" } },
+          [_vm._v("AGUA")]
+        )
+      ]),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check form-check-inline" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { type: "checkbox", id: "alcant", value: "alcant1" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "alcant" } },
+          [_vm._v("ALCANTARILLADO")]
+        )
+      ]),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check form-check-inline" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { type: "checkbox", id: "telefono", value: "telefono1" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "telefono" } },
+          [_vm._v("TELEFONO")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "superf" } }, [
+          _vm._v("superficie del terreno")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "superf", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "inclin" } }, [
+          _vm._v("Inclinacion del terreno")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "inclin", required: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "calidad" } }, [
+          _vm._v("Calidad")
+        ]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { id: "calidad", required: "" }
+          },
+          [
+            _c("option", { attrs: { selected: "" } }, [_vm._v("Seleccionar")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1" } }, [_vm._v("LUJOSA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2" } }, [_vm._v("MUY BUENA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3" } }, [_vm._v("BUENA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "4" } }, [_vm._v("ECONOMICA")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "5" } }, [_vm._v("INTERES SOCIAL")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "6" } }, [_vm._v("MARGINAL")])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c(
+          "label",
+          { staticClass: "form-label", attrs: { for: "superterr" } },
+          [_vm._v("Superficie")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "superterr", required: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("label", { staticClass: "form-label", attrs: { for: "antig" } }, [
+          _vm._v("Antiguedad")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "number", id: "antig", required: "", min: "0" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Save changes")]
+      )
     ])
   }
 ]

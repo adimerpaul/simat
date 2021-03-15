@@ -146,11 +146,20 @@ class ContController extends Controller
         //
     }
 
+    public function buscarcont($comun){
+        return Cont::where('comun',$comun)->get(); 
+
+    }
+
     public function codbarrio(){
         return DB::table('pmbarrio')->select('barrio','codigo')->get();
     }
     public function codham(){
         return DB::table('pmcodham')->select('codigo','alcaldia')->orderByDesc('alcaldia')->get();
+        
+    }
+    public function codzona(){
+        return DB::table('pmzona')->select('zona','descrip')->get();
         
     }
 }

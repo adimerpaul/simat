@@ -63,7 +63,7 @@
                                 <div class="form-group col-md-2">
                                     <label for="cod_ham">cod_ham</label>
                                     <select  class="form-control" v-model="dato.cod_ham"  name="cod_ham" id="cod_ham" required>
-                                        <option v-for="i in ham" v-bind:value="i.codigo">
+                                        <option v-for="i in ham"  v-bind:value="i.codigo" >
                                             {{i.alcaldia}}
                                         </option>
                                     </select>
