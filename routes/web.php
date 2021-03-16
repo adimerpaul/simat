@@ -32,6 +32,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/guardar', [App\Http\Controllers\ContController::class, 'store'])->name('home');
+Route::post('/registrar', [App\Http\Controllers\InmController::class, 'store'])->name('home');
 Route::get('/cont/{comun}/{tipo}', [App\Http\Controllers\ContController::class, 'show'])->name('home');
 Route::get('/inm/{comun}', [App\Http\Controllers\InmController::class, 'show'])->name('home');
 Route::get('/cbarrio', [App\Http\Controllers\ContController::class, 'codbarrio'])->name('home');

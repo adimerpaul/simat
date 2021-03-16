@@ -66,7 +66,7 @@
                             </li>
                         </router-link>
                         <router-link
-                            to="/inmuebles"
+                            to="/inmueble"
                             v-slot="{ href, route, navigate, isActive, isExactActive }"
                         >
                             <li class="nav-item">

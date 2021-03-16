@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Inm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InmController extends Controller
 {
@@ -36,13 +37,13 @@ class InmController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $num=DB::table('pm01inmu')->count()->where('comun');
+        $com=$request->comun;
+        $num=DB::table('pm01inmu')->where('comun',$com)->count();
         $num++;
-        $inmueble=new Inmu();
-        $inmueble->comun=$request->comun;
-        $inmueble->cantidad=$request->comun.'0'.$num;
-        $inmueble->flag_inmu=$request->flag;
+        $inmueble=new Inm();
+        $inmueble->comun=$com;
+        $inmueble->cantidad=$com.'0'.$num;
+        $inmueble->flag_inmu=$request->flaginmu;
         $inmueble->gestion=date('Y');
         $inmueble->var1='0';
         $inmueble->cod_barrio=$request->codbarrio;
@@ -59,16 +60,31 @@ class InmController extends Controller
         $inmueble->sublote=$request->sublote;
         $inmueble->descrip=$request->descrp;
         $inmueble->mat_vias=$request->matvias;
-        $inmueble->luz=$request->luz;
-        $inmueble->agua=$request->agua;
-        $inmueble->alcantari=$request->alcantari;
-        $inmueble->telefono=$request->telefono;
+
+        if ($request->luz)
+            $inmueble->luz='S';
+        else
+            $inmueble->luz='N';
+        if($request->agua)
+            $inmueble->agua='S';
+        else
+            $inmueble->agua='N';
+        if($request->alcantari)
+            $inmueble->alcantari='S';
+        else
+            $inmueble->alcantari='N';
+        if($request->telefono)
+            $inmueble->telefono='S';
+        else
+            $inmueble->telefono='N';
+
         $inmueble->superficie=$request->superficie;
         $inmueble->inclinac=$request->inclinac;
         $inmueble->viv_unifa=$request->unifa;
         $inmueble->prop_horiz='';
         $inmueble->sup_const=$request->supconst;
-        $inmueble->ant_const=$request->antconst;
+        $inmueble->ant_const= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
+
         $inmueble->var2='0';
         $inmueble->deuda='0';
         $inmueble->var3='0';
@@ -79,7 +95,7 @@ class InmController extends Controller
         $inmueble->cod_caja='SIMAT';
         $inmueble->bandera='0';
         $inmueble->valor_ha=0.00;
-        $inmueble->fecha_reg=date();
+        $inmueble->fecha_reg=now();
         $inmueble->hora_reg=date('H:i:s');
         $inmueble->control='F';
         $inmueble->n_informe='';
@@ -91,8 +107,7 @@ class InmController extends Controller
         $inmueble->l080='F';
         $inmueble->l080terren=0.00;
         $inmueble->l080constr=0.00;
-        DB::table('pm01inmu')->insert($inmueble);
-        return true;
+        $inmueble->save();
     }
 
     /**
