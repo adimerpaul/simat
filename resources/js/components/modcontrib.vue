@@ -63,7 +63,7 @@
                                 <div class="form-group col-md-2">
                                     <label for="cod_ham">cod_ham</label>
                                     <select  class="form-control" v-model="dato.cod_ham"  name="cod_ham" id="cod_ham" required>
-                                        <option v-for="i in ham"  v-bind:value="i.codigo" >
+                                        <option v-for="i in ham"  v-bind:value="i.codigo" v-bind:key="i.codigo">
                                             {{i.alcaldia}}
                                         </option>
                                     </select>
@@ -71,7 +71,7 @@
                                 <div class="form-group col-md-2">
                                     <label for="cod_barrio">cod_barrio</label>
                                     <select  class="form-control" v-model="dato.cod_barrio"  name="cod_barrio" id="cod_barrio" required>
-                                        <option v-for="f in barrio" v-bind:value="f.codigo">
+                                        <option v-for="f in barrio" v-bind:value="f.codigo" v-bind:key="f.codigo">
                                             {{f.barrio}}
                                         </option>
                                     </select>

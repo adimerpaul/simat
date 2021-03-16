@@ -2261,9 +2261,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2282,6 +2279,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     // console.log('Component mounted.');
+    $('#areadept').css("display", "none");
     axios.get('/cbarrio').then(function (res) {
       _this.barrio = res.data;
     });
@@ -2343,6 +2341,7 @@ __webpack_require__.r(__webpack_exports__);
     cambio: function cambio() {
       console.log($('#tipoinm').val());
       if ($('#tipoinm').val() == 3) $('#areadept').css("display", "");else $('#areadept').css("display", "none");
+      if ($('#tipoinm').val() != 2) $('#areaconst').css("display", "");else $('#areaconst').css("display", "none");
     },
     listar: function listar() {
       var _this4 = this;
@@ -42090,7 +42089,7 @@ var render = function() {
                                 "label",
                                 {
                                   staticClass: "form-label",
-                                  attrs: { for: "tipoin" }
+                                  attrs: { for: "tipoinm" }
                                 },
                                 [_vm._v("INMUEBLE")]
                               ),
@@ -42172,26 +42171,23 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _c("option", { attrs: { selected: "" } }, [
-                                    _vm._v("Seleccionar")
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.zona, function(z) {
-                                    return _c(
-                                      "option",
-                                      { domProps: { value: z.zona } },
-                                      [
-                                        _vm._v(
-                                          "\n                    " +
-                                            _vm._s(z.descrip) +
-                                            "\n                    "
-                                        )
-                                      ]
-                                    )
-                                  })
-                                ],
-                                2
+                                _vm._l(_vm.zona, function(z) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: z.zona,
+                                      domProps: { value: z.zona }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                    " +
+                                          _vm._s(z.descrip) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
                               )
                             ]),
                             _vm._v(" "),
@@ -42241,26 +42237,23 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _c("option", { attrs: { selected: "" } }, [
-                                    _vm._v("Seleccionar")
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.barrio, function(b) {
-                                    return _c(
-                                      "option",
-                                      { domProps: { value: b.codigo } },
-                                      [
-                                        _vm._v(
-                                          "\n                    " +
-                                            _vm._s(b.barrio) +
-                                            "\n                    "
-                                        )
-                                      ]
-                                    )
-                                  })
-                                ],
-                                2
+                                _vm._l(_vm.barrio, function(b) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: b.codigo,
+                                      domProps: { value: b.codigo }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(b.barrio) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
                               )
                             ]),
                             _vm._v(" "),
@@ -42311,10 +42304,6 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c("option", { attrs: { selected: "" } }, [
-                                    _vm._v("Seleccionar")
-                                  ]),
-                                  _vm._v(" "),
                                   _c("option", { attrs: { value: "CA" } }, [
                                     _vm._v("CALLE")
                                   ]),
@@ -42467,7 +42456,11 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "div",
-                            { staticClass: "row", attrs: { id: "areadept" } },
+                            {
+                              staticClass: "row",
+                              staticStyle: { display: "none" },
+                              attrs: { id: "areadept" }
+                            },
                             [
                               _c("div", { staticClass: "col-md-4" }, [
                                 _c(
@@ -42807,35 +42800,35 @@ var render = function() {
                                     _vm._v("Seleccionar")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "CA" } }, [
+                                  _c("option", { attrs: { value: "1" } }, [
                                     _vm._v("ASFALTO")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "AV" } }, [
+                                  _c("option", { attrs: { value: "2" } }, [
                                     _vm._v("ADOQUIN")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "PL" } }, [
+                                  _c("option", { attrs: { value: "3" } }, [
                                     _vm._v("CEMENTO")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "PJ" } }, [
+                                  _c("option", { attrs: { value: "4" } }, [
                                     _vm._v("LOSETA")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "PJ" } }, [
+                                  _c("option", { attrs: { value: "4" } }, [
                                     _vm._v("PIEDRA")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "PJ" } }, [
+                                  _c("option", { attrs: { value: "5" } }, [
                                     _vm._v("RIPIO")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "PJ" } }, [
+                                  _c("option", { attrs: { value: "6" } }, [
                                     _vm._v("TIERRA")
                                   ]),
                                   _vm._v(" "),
-                                  _c("option", { attrs: { value: "PJ" } }, [
+                                  _c("option", { attrs: { value: "7" } }, [
                                     _vm._v("LADRILLO")
                                   ])
                                 ]
@@ -42865,8 +42858,7 @@ var render = function() {
                                   attrs: {
                                     type: "checkbox",
                                     id: "luz",
-                                    value: "luz1",
-                                    checked: "false"
+                                    value: "luz1"
                                   },
                                   domProps: {
                                     checked: Array.isArray(_vm.dato.luz)
@@ -42934,8 +42926,7 @@ var render = function() {
                                   attrs: {
                                     type: "checkbox",
                                     id: "agua",
-                                    value: "agua1",
-                                    checked: "false"
+                                    value: "agua1"
                                   },
                                   domProps: {
                                     checked: Array.isArray(_vm.dato.agua)
@@ -43003,8 +42994,7 @@ var render = function() {
                                   attrs: {
                                     type: "checkbox",
                                     id: "alcant",
-                                    value: "alcant1",
-                                    checked: "false"
+                                    value: "alcant1"
                                   },
                                   domProps: {
                                     checked: Array.isArray(_vm.dato.alcantari)
@@ -43073,8 +43063,7 @@ var render = function() {
                                   attrs: {
                                     type: "checkbox",
                                     id: "telefono",
-                                    value: "telefono1",
-                                    checked: "false"
+                                    value: "telefono1"
                                   },
                                   domProps: {
                                     checked: Array.isArray(_vm.dato.telefono)
@@ -43233,12 +43222,12 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("h5", [_vm._v("Datos de Construccion")]),
-                          _vm._v(" "),
                           _c(
                             "div",
-                            { staticClass: "row", attrs: { id: "const" } },
+                            { staticClass: "row", attrs: { id: "areaconst" } },
                             [
+                              _vm._m(3),
+                              _vm._v(" "),
                               _c("div", { staticClass: "col-md-4" }, [
                                 _c(
                                   "label",
@@ -43288,7 +43277,7 @@ var render = function() {
                                   [
                                     _c(
                                       "option",
-                                      { attrs: { selected: "", value: "" } },
+                                      { attrs: { value: "", selected: "" } },
                                       [_vm._v("Seleccionar")]
                                     ),
                                     _vm._v(" "),
@@ -43344,8 +43333,7 @@ var render = function() {
                                     step: "0.01",
                                     min: "0",
                                     value: "0",
-                                    id: "superterr",
-                                    required: ""
+                                    id: "superterr"
                                   },
                                   domProps: { value: _vm.dato.supconst },
                                   on: {
@@ -43386,7 +43374,6 @@ var render = function() {
                                   attrs: {
                                     type: "number",
                                     id: "antig",
-                                    required: "",
                                     min: "0",
                                     value: "0"
                                   },
@@ -43480,6 +43467,15 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h5", [_vm._v("Datos de Construccion")]),
+      _c("hr")
     ])
   }
 ]
@@ -43872,13 +43868,17 @@ var render = function() {
                 }
               },
               _vm._l(_vm.ham, function(i) {
-                return _c("option", { domProps: { value: i.codigo } }, [
-                  _vm._v(
-                    "\n                                            " +
-                      _vm._s(i.alcaldia) +
-                      "\n                                        "
-                  )
-                ])
+                return _c(
+                  "option",
+                  { key: i.codigo, domProps: { value: i.codigo } },
+                  [
+                    _vm._v(
+                      "\n                                            " +
+                        _vm._s(i.alcaldia) +
+                        "\n                                        "
+                    )
+                  ]
+                )
               }),
               0
             )
@@ -43921,13 +43921,17 @@ var render = function() {
                 }
               },
               _vm._l(_vm.barrio, function(f) {
-                return _c("option", { domProps: { value: f.codigo } }, [
-                  _vm._v(
-                    "\n                                            " +
-                      _vm._s(f.barrio) +
-                      "\n                                        "
-                  )
-                ])
+                return _c(
+                  "option",
+                  { key: f.codigo, domProps: { value: f.codigo } },
+                  [
+                    _vm._v(
+                      "\n                                            " +
+                        _vm._s(f.barrio) +
+                        "\n                                        "
+                    )
+                  ]
+                )
               }),
               0
             )

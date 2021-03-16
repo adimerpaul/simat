@@ -49,16 +49,47 @@ class InmController extends Controller
         $inmueble->cod_barrio=$request->codbarrio;
         $inmueble->tipocalle=$request->tipocalle;
         $inmueble->nombrecall=$request->nombrecall;
-        $inmueble->numcasa=$request->numcasa;
-        $inmueble->bloque='';
-        $inmueble->piso='';
-        $inmueble->numdpto='';
+        if($request->numcasa==null)
+            $variable='';
+        else 
+            $variable=$request->numcasa;
+        $inmueble->numcasa=$variable;
+        if($request->bloque==null)
+            $variable='';
+        else 
+            $variable=$request->bloque;
+        $inmueble->bloque=$variable;
+        if($request->piso==null)
+            $variable='';
+        else 
+            $variable=$request->piso;
+        $inmueble->piso=$variable;
+        if($request->numdpto==null)
+            $variable='';
+        else 
+            $variable=$request->numdpto;
+        $inmueble->numdpto=$variable;
+
         $inmueble->zona=$request->zona;
         $inmueble->distrito=$request->distrito;
-        $inmueble->manzano=$request->manzano;
-        $inmueble->lote=$request->lote;
-        $inmueble->sublote=$request->sublote;
-        $inmueble->descrip=$request->descrp;
+
+        if($request->manzano==null)
+            $variable='';
+        else 
+            $variable=$request->manzano;
+        $inmueble->manzano=$variable;
+        if($request->lote==null)
+            $variable='';
+        else 
+            $variable=$request->lote;
+        $inmueble->lote=$variable;
+        if($request->sublote==null)
+            $variable='';
+        else 
+            $variable=$request->sublote; 
+        $inmueble->sublote=$variable;
+
+        $inmueble->descrip=$request->descrip;
         $inmueble->mat_vias=$request->matvias;
 
         if ($request->luz)
@@ -80,7 +111,8 @@ class InmController extends Controller
 
         $inmueble->superficie=$request->superficie;
         $inmueble->inclinac=$request->inclinac;
-        $inmueble->viv_unifa=$request->unifa;
+
+        $inmueble->viv_unifa=$request->vivunifa;
         $inmueble->prop_horiz='';
         $inmueble->sup_const=$request->supconst;
         $inmueble->ant_const= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));

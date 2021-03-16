@@ -63,7 +63,7 @@
           <div class="row">
                 <div class="col-md-4">
                     <label for="tipocont" class="form-label">TIPO</label>
-                    <select class="form-control" id='tipocont' required v-model='dato.flaginmu'> 
+                    <select class="form-control" id='tipocont'  v-model='dato.flaginmu' required> 
                         <option value="N" selected>NATURAL</option>
                         <option value="J">JURIDICA</option>
                         <option value="I">INDIVISA</option>
@@ -71,7 +71,7 @@
                     <input type="hidden" name="comun0" id="comun0" v-model='dato.comun' value=''>
                 </div>
                 <div class="col-md-4">
-                    <label for="tipoin" class="form-label">INMUEBLE</label>
+                    <label for="tipoinm" class="form-label">INMUEBLE</label>
                     <select class="form-control" id='tipoinm' required @change="cambio">
                         <option value="1" selected>CASA</option>
                         <option value="2">LOTE</option>
@@ -85,8 +85,7 @@
             <div class="col-md-4">
                 <label for="zona" class="form-label">Zona</label>
                 <select class="form-control" id='zona' required v-model="dato.zona">
-                    <option selected>Seleccionar</option>
-                    <option v-for="z in zona" v-bind:value="z.zona">
+                    <option v-for="z in zona" v-bind:value="z.zona" v-bind:key="z.zona">
                     {{z.descrip}}
                     </option>
                 </select>
@@ -94,16 +93,14 @@
             <div class="col-md-4">
                 <label for="barrio" class="form-label">Barrio</label>
                 <select class="form-control" id='barrio' required v-model="dato.codbarrio">
-                    <option selected>Seleccionar</option>
-                    <option v-for="b in barrio" v-bind:value="b.codigo">
-                    {{b.barrio}}
+                    <option v-for="b in barrio " v-bind:value="b.codigo" v-bind:key="b.codigo">
+                        {{b.barrio}}
                     </option>
                 </select>
             </div>
         <div class="col-md-4">
             <label for="tipocalle" class="form-label">Tipo Calle</label>
             <select class="form-control" id='tipocalle' required v-model="dato.tipocalle">
-                <option selected>Seleccionar</option>
                 <option value="CA">CALLE</option>
                 <option value="AV">AVENIDA</option>
                 <option value="PL">PLAZA</option>
@@ -132,7 +129,7 @@
 
         </div>
 
-        <div class='row' id='areadept'>
+        <div class='row' id='areadept' style="display:none">
             <div class="col-md-4">
                 <label for="bloque" class="form-label">bloque</label>
                 <input type="text" class="form-control" id="bloque" value='' v-model="dato.bloque">
@@ -168,14 +165,14 @@
                 <label for="material" class="form-label">Material calle</label>
                 <select class="form-control" id='material' required v-model="dato.matvias">
                     <option selected >Seleccionar</option>
-                    <option value="CA">ASFALTO</option>
-                    <option value="AV">ADOQUIN</option>
-                    <option value="PL">CEMENTO</option>
-                    <option value="PJ">LOSETA</option>
-                    <option value="PJ">PIEDRA</option>
-                    <option value="PJ">RIPIO</option>
-                    <option value="PJ">TIERRA</option>
-                    <option value="PJ">LADRILLO</option>
+                    <option value="1">ASFALTO</option>
+                    <option value="2">ADOQUIN</option>
+                    <option value="3">CEMENTO</option>
+                    <option value="4">LOSETA</option>
+                    <option value="4">PIEDRA</option>
+                    <option value="5">RIPIO</option>
+                    <option value="6">TIERRA</option>
+                    <option value="7">LADRILLO</option>
                 </select>
             </div>
         </div>
@@ -183,19 +180,19 @@
         <div class="">
             <h5>Servicios</h5>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="luz" value="luz1" v-model="dato.luz" checked=false>
+                <input class="form-check-input" type="checkbox" id="luz" value="luz1" v-model="dato.luz" >
                 <label class="form-check-label" for="luz">LUZ</label>
             </div><br>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="agua" value="agua1" v-model="dato.agua" checked=false>
+                <input class="form-check-input" type="checkbox" id="agua" value="agua1" v-model="dato.agua" >
                 <label class="form-check-label" for="agua">AGUA</label>
             </div><br>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="alcant" value="alcant1" v-model="dato.alcantari" checked=false>
+                <input class="form-check-input" type="checkbox" id="alcant" value="alcant1" v-model="dato.alcantari" >
                 <label class="form-check-label" for="alcant">ALCANTARILLADO</label>
             </div><br>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="telefono" value="telefono1" v-model="dato.telefono" checked=false>
+                <input class="form-check-input" type="checkbox" id="telefono" value="telefono1" v-model="dato.telefono" >
                 <label class="form-check-label" for="telefono">TELEFONO</label>
             </div>
         </div>
@@ -213,12 +210,12 @@
                 </select>
             </div>
         </div>
-        <h5>Datos de Construccion</h5>
-        <div class="row" id='const'>
+        <div class="row" id='areaconst'>
+            <div class="col-md-12"><h5>Datos de Construccion</h5><hr></div>
             <div class="col-md-4">
                 <label for="calidad" class="form-label">Calidad</label>
-                <select class="form-control" id='calidad'  v-model="dato.vivunifa">
-                    <option selected value=''>Seleccionar</option>
+                <select class="form-control" id='calidad' v-model="dato.vivunifa">
+                    <option value='' selected>Seleccionar</option>
                     <option value="1">LUJOSA</option>
                     <option value="2">MUY BUENA</option>
                     <option value="3">BUENA</option>
@@ -229,11 +226,11 @@
             </div>
             <div class="col-md-4">
                 <label for="superterr" class="form-label">Superficie const</label>
-                <input type="number" step="0.01" min=0 value=0 class="form-control" id="superterr" required v-model="dato.supconst">
+                <input type="number" step="0.01" min=0 value=0 class="form-control" id="superterr"  v-model="dato.supconst">
             </div>
             <div class="col-md-4">
                 <label for="antig" class="form-label">Antiguedad</label>
-                <input type="number" class="form-control" id="antig" required min=0 value=0 v-model="dato.antconst">
+                <input type="number" class="form-control" id="antig"  min=0 value=0 v-model="dato.antconst">
             </div>
         </div>
 <hr>
@@ -268,6 +265,8 @@ export default {
         },
         mounted() {
             // console.log('Component mounted.');
+            $('#areadept').css("display","none");
+
             axios.get('/cbarrio').then(res=>{
                 this.barrio=res.data;
             });
@@ -330,6 +329,12 @@ export default {
                     $('#areadept').css("display","");
                 else
                     $('#areadept').css("display","none");
+                if($('#tipoinm').val()!=2)
+                    $('#areaconst').css("display","");
+                else
+                    $('#areaconst').css("display","none");
+
+                    
             },
 
             listar(){
