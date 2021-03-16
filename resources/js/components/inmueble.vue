@@ -36,6 +36,7 @@
       <th scope="col">Cont</th>
       <th scope="col">Ubicacion</th>
       <th scope="col">Superficie</th>
+      <th scope="col">Opcion</th>
     </tr>
   </thead>
   <tbody>
@@ -44,6 +45,7 @@
             <td>{{i.flag_inmu}}</td>
             <td>{{i.descrip}}</td>
             <td>{{i.superficie}}</td>
+            <td><button class="btn btn-info">Mod</button></td>
         </tr>
   </tbody>
 </table>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inm;
+use App\Models\Cont;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -140,6 +141,12 @@ class InmController extends Controller
         $inmueble->l080terren=0.00;
         $inmueble->l080constr=0.00;
         $inmueble->save();
+
+        $cont=DB::table('pm01cont')
+        ->where('comun',$comun)
+        ->update(['act_inmu'=>'A']);
+
+
     }
 
     /**

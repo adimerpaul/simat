@@ -2261,6 +2261,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -41944,7 +41946,9 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(i.descrip))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(i.superficie))])
+                  _c("td", [_vm._v(_vm._s(i.superficie))]),
+                  _vm._v(" "),
+                  _vm._m(2, true)
                 ])
               }),
               0
@@ -41974,7 +41978,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(2),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _c(
@@ -43226,7 +43230,7 @@ var render = function() {
                             "div",
                             { staticClass: "row", attrs: { id: "areaconst" } },
                             [
-                              _vm._m(3),
+                              _vm._m(4),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-md-4" }, [
                                 _c(
@@ -43440,8 +43444,18 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Ubicacion")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Superficie")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Superficie")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Opcion")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-info" }, [_vm._v("Mod")])
     ])
   },
   function() {
