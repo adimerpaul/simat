@@ -2607,7 +2607,7 @@ __webpack_require__.r(__webpack_exports__);
         };
         if (info['luz'] == 'S') _this6.modif.luz = true;else _this6.modif.luz = false;
         if (info['agua'] == 'S') _this6.modif.agua = true;else _this6.modif.agua = false;
-        if (info['alcantari'] == 's') _this6.modif.alcantari = true;else _this6.modif.alcantari = false;
+        if (info['alcantari'] == 'S') _this6.modif.alcantari = true;else _this6.modif.alcantari = false;
         if (info['telefono'] == 'S') _this6.modif.telefono = true;else _this6.modif.telefono = false;
         _this6.modif.superficie = info['superficie'];
         _this6.modif.inclinac = info['inclinac'];

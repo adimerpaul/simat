@@ -609,7 +609,7 @@ export default {
                         this.modif.agua=true;
                     else
                         this.modif.agua=false;
-                    if(info['alcantari']=='s')
+                    if(info['alcantari']=='S')
                         this.modif.alcantari=true;
                     else
                         this.modif.alcantari=false;
