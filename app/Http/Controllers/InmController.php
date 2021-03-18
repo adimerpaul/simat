@@ -151,6 +151,7 @@ class InmController extends Controller
 
     /**
      * Display the specified resource.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -178,9 +179,84 @@ class InmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $cantidad1)
     {
-        //
+        $con=$request->cantidad;
+        $inmueble=array(
+
+        'comun'=>$request->comun,
+        'flag_inmu'=>$request->flaginmu,
+        'cod_barrio'=>$request->codbarrio,
+        'tipocalle'=>$request->tipocalle,
+        'nombrecall'=>$request->nombrecall);
+        if($request->numcasa==null)
+            $variable='';
+        else 
+            $variable=$request->numcasa;
+        $inmueble['numcasa']=$variable;
+        if($request->bloque==null)
+            $variable='';
+        else 
+            $variable=$request->bloque;
+        $inmueble['bloque']=$variable;
+        if($request->piso==null)
+            $variable='';
+        else 
+            $variable=$request->piso;
+        $inmueble['piso']=$variable;
+        if($request->numdpto==null)
+            $variable='';
+        else 
+            $variable=$request->numdpto;
+        $inmueble['numdpto']=$variable;
+        $inmueble['zona']=$request->zona;
+        $inmueble['distrito']=$request->distrito;
+
+        if($request->manzano==null)
+            $variable='';
+        else 
+            $variable=$request->manzano;
+        $inmueble['manzano']=$variable;
+        if($request->lote==null)
+            $variable='';
+        else 
+            $variable=$request->lote;
+        $inmueble['lote']=$variable;
+        if($request->sublote==null)
+            $variable='';
+        else 
+            $variable=$request->sublote; 
+        $inmueble['sublote']=$variable;
+
+        $inmueble['descrip']=$request->descrip;
+        $inmueble['mat_vias']=$request->matvias;
+
+        if ($request->luz)
+            $inmueble['luz']='S';
+        else
+            $inmueble['luz']='N';
+        if($request->agua)
+            $inmueble['agua']='S';
+        else
+            $inmueble['agua']='N';
+        if($request->alcantari)
+            $inmueble['alcantari']='S';
+        else
+            $inmueble['alcantari']='N';
+        if($request->telefono)
+            $inmueble['telefono']='S';
+        else
+            $inmueble['telefono']='N';
+
+        $inmueble['superficie']=$request->superficie;
+        $inmueble['inclinac']=$request->inclinac;
+
+        $inmueble['viv_unifa']=$request->vivunifa;
+        $inmueble['sup_const']=$request->supconst;
+        $inmueble['ant_const']= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
+        $cont=DB::table('pm01inmu')
+        ->where('cantidad',$con)
+        ->update($inmueble);
     }
 
     /**
@@ -192,5 +268,10 @@ class InmController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function datoinm($cantidad){
+        return Inm::where('cantidad',$cantidad)->get(); 
+
     }
 }

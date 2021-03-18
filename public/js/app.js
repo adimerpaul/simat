@@ -2263,10 +2263,207 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       dato: {},
+      modif: {},
       dato2: {},
       completo: '',
       direc: '',
@@ -2317,26 +2514,51 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    buscar: function buscar() {
+    modificar: function modificar() {
       var _this3 = this;
+
+      console.log(this.modif);
+      axios.put('/modificar/' + this.modif.cantidad, this.modif).then(function (res) {
+        _this3.$fire({
+          title: "Guardado",
+          text: "Correctamente",
+          type: "success",
+          timer: 3000
+        });
+
+        _this3.inm = {};
+        $('#modinmu').modal('hide');
+        _this3.buscar;
+      })["catch"](function (e) {
+        // console.log(e.response.data.message);
+        _this3.$fire({
+          title: "Error",
+          text: e.response.data.message,
+          type: "error" // timer: 3000
+
+        });
+      });
+    },
+    buscar: function buscar() {
+      var _this4 = this;
 
       axios.get('/buscar/' + this.dato2.comun).then(function (res) {
         console.log(res.data);
 
         if (res.data != '') {
           //this.dato=res.data[0];
-          _this3.dato.comun = res.data[0].comun;
+          _this4.dato.comun = res.data[0].comun;
           console.log($('#comun0').prop('value'));
-          _this3.completo = res.data[0].nombre + ' ' + res.data[0].paterno + ' ' + res.data[0].materno;
-          _this3.direc = res.data[0].descrip;
-          _this3.validar = true;
+          _this4.completo = res.data[0].nombre + ' ' + res.data[0].paterno + ' ' + res.data[0].materno;
+          _this4.direc = res.data[0].descrip;
+          _this4.validar = true;
 
-          _this3.listar();
+          _this4.listar();
         } else {
-          _this3.completo = 'Contribuyente no Registrado';
-          _this3.direc = '';
-          _this3.validar = false;
-          _this3.inm = [];
+          _this4.completo = 'Contribuyente no Registrado';
+          _this4.direc = '';
+          _this4.validar = false;
+          _this4.inm = [];
         }
       });
     },
@@ -2345,11 +2567,53 @@ __webpack_require__.r(__webpack_exports__);
       if ($('#tipoinm').val() == 3) $('#areadept').css("display", "");else $('#areadept').css("display", "none");
       if ($('#tipoinm').val() != 2) $('#areaconst').css("display", "");else $('#areaconst').css("display", "none");
     },
+    cambio2: function cambio2() {
+      if ($('#modtipoinm').val() == 3) $('#areadept2').css("display", "");else $('#areadept2').css("display", "none");
+      if ($('#modtipoinm').val() != 2) $('#areaconst2').css("display", "");else $('#areaconst2').css("display", "none");
+    },
     listar: function listar() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get('/inm/' + this.dato2.comun).then(function (res) {
-        _this4.inm = res.data;
+        console.log(res.data);
+        _this5.inm = res.data;
+      });
+    },
+    recuperar: function recuperar($cc) {
+      var _this6 = this;
+
+      axios.get('/datoinm/' + $cc).then(function (res) {
+        console.log(res.data);
+        var info = res.data[0];
+        console.log(info['comun']);
+        _this6.modif = {
+          'comun': info['comun'],
+          'cantidad': info['cantidad'],
+          'flaginmu': info['flag_inmu'],
+          'codbarrio': info['cod_barrio'],
+          'tipocalle': info['tipocalle'],
+          'nombrecall': info['nombrecall'],
+          'numcasa': info['numcasa'],
+          'bloque': info['bloque'],
+          'piso': info['piso'],
+          'numdpto': info['numdpto'],
+          'zona': info['zona'],
+          'distrito': info['distrito'],
+          'manzano': info['manzano'],
+          'lote': info['lote'],
+          'sublote': info['sublote'],
+          'descrip': info['descrip'],
+          'matvias': info['mat_vias']
+        };
+        if (info['luz'] == 'S') _this6.modif.luz = true;else _this6.modif.luz = false;
+        if (info['agua'] == 'S') _this6.modif.agua = true;else _this6.modif.agua = false;
+        if (info['alcantari'] == 's') _this6.modif.alcantari = true;else _this6.modif.alcantari = false;
+        if (info['telefono'] == 'S') _this6.modif.telefono = true;else _this6.modif.telefono = false;
+        _this6.modif.superficie = info['superficie'];
+        _this6.modif.inclinac = info['inclinac'];
+        _this6.modif.vivunifa = info['viv_unifa'];
+        _this6.modif.supconst = info['sup_const'];
+        _this6.modif.antconst = info['ant_const'];
       });
     }
   }
@@ -41948,7 +42212,29 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(i.superficie))]),
                   _vm._v(" "),
-                  _vm._m(2, true)
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "button",
+                          "data-toggle": "modal",
+                          "data-target": "#modinmu"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.recuperar(i.cantidad)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "  \n                        Mod\n                    "
+                        )
+                      ]
+                    )
+                  ])
                 ])
               }),
               0
@@ -41978,7 +42264,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _c(
@@ -43230,7 +43516,7 @@ var render = function() {
                             "div",
                             { staticClass: "row", attrs: { id: "areaconst" } },
                             [
-                              _vm._m(4),
+                              _vm._m(3),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-md-4" }, [
                                 _c(
@@ -43418,7 +43704,1448 @@ var render = function() {
             ]
           )
         ])
-      : _vm._e()
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade bd-example-modal-lg",
+        attrs: {
+          id: "modinmu",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    attrs: { action: "" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.modificar($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-mod-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modcomun" }
+                          },
+                          [_vm._v("CI/RUN")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.comun,
+                              expression: "modif.comun"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            name: "modcomun",
+                            id: "modcomun",
+                            required: ""
+                          },
+                          domProps: { value: _vm.modif.comun },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.modif, "comun", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.cantidad,
+                              expression: "modif.cantidad"
+                            }
+                          ],
+                          attrs: {
+                            type: "hidden",
+                            name: "modcantidad",
+                            id: "modcantidad",
+                            required: ""
+                          },
+                          domProps: { value: _vm.modif.cantidad },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "cantidad",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modtipocont" }
+                          },
+                          [_vm._v("TIPO")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.flaginmu,
+                                expression: "modif.flaginmu"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "modtipocont", required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.modif,
+                                  "flaginmu",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "N", selected: "" } },
+                              [_vm._v("NATURAL")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "J" } }, [
+                              _vm._v("JURIDICA")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "I" } }, [
+                              _vm._v("INDIVISA")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modtipoinm" }
+                          },
+                          [_vm._v("INMUEBLE")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control",
+                            attrs: { id: "modtipoinm", required: "" },
+                            on: { change: _vm.cambio2 }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "1", selected: "" } },
+                              [_vm._v("CASA")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("LOTE")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "3" } }, [
+                              _vm._v("DEPTO")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "4" } }, [
+                              _vm._v("P. RURAL")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modzona" }
+                          },
+                          [_vm._v("Zona")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.zona,
+                                expression: "modif.zona"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "modzona", required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.modif,
+                                  "zona",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.zona, function(z) {
+                            return _c(
+                              "option",
+                              { key: z.zona, domProps: { value: z.zona } },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(z.descrip) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modbarrio" }
+                          },
+                          [_vm._v("Barrio")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.codbarrio,
+                                expression: "modif.codbarrio"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "modbarrio", required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.modif,
+                                  "codbarrio",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.barrio, function(b) {
+                            return _c(
+                              "option",
+                              { key: b.codigo, domProps: { value: b.codigo } },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(b.barrio) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modtipocalle" }
+                          },
+                          [_vm._v("Tipo Calle")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.tipocalle,
+                                expression: "modif.tipocalle"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "modtipocalle", required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.modif,
+                                  "tipocalle",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "CA" } }, [
+                              _vm._v("CALLE")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "AV" } }, [
+                              _vm._v("AVENIDA")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "PL" } }, [
+                              _vm._v("PLAZA")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "PJ" } }, [
+                              _vm._v("PASAJE")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-8" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modncalle" }
+                          },
+                          [_vm._v("Nombre Calle")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.nombrecall,
+                              expression: "modif.nombrecall"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "modncalle",
+                            required: ""
+                          },
+                          domProps: { value: _vm.modif.nombrecall },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "nombrecall",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modnumero" }
+                          },
+                          [_vm._v("Numero")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.numcasa,
+                              expression: "modif.numcasa"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "modnumero",
+                            required: ""
+                          },
+                          domProps: { value: _vm.modif.numcasa },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "numcasa",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "moddireccion" }
+                          },
+                          [_vm._v("Direccion")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.descrip,
+                              expression: "modif.descrip"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "moddireccion",
+                            required: ""
+                          },
+                          domProps: { value: _vm.modif.descrip },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "descrip",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "row",
+                        staticStyle: { display: "none" },
+                        attrs: { id: "areadept2" }
+                      },
+                      [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "modbloque" }
+                            },
+                            [_vm._v("bloque")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.bloque,
+                                expression: "modif.bloque"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "modbloque", value: "" },
+                            domProps: { value: _vm.modif.bloque },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.modif,
+                                  "bloque",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "modpiso" }
+                            },
+                            [_vm._v("piso")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.piso,
+                                expression: "modif.piso"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "modpiso", value: "" },
+                            domProps: { value: _vm.modif.piso },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.modif, "piso", $event.target.value)
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "modnumdpto" }
+                            },
+                            [_vm._v("numdpto")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.numdpto,
+                                expression: "modif.numdpto"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "modnumdpto",
+                              value: ""
+                            },
+                            domProps: { value: _vm.modif.numdpto },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.modif,
+                                  "numdpto",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "moddistrito" }
+                          },
+                          [_vm._v("Distrito")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.distrito,
+                              expression: "modif.distrito"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "moddistrito",
+                            required: "",
+                            value: ""
+                          },
+                          domProps: { value: _vm.modif.distrito },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "distrito",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modmanzano" }
+                          },
+                          [_vm._v("manzano")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.manzano,
+                              expression: "modif.manzano"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "modmanzano", value: "" },
+                          domProps: { value: _vm.modif.manzano },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "manzano",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modlote" }
+                          },
+                          [_vm._v("lote")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.lote,
+                              expression: "modif.lote"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "modlote", value: "" },
+                          domProps: { value: _vm.modif.lote },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.modif, "lote", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modsublote" }
+                          },
+                          [_vm._v("sublote")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.sublote,
+                              expression: "modif.sublote"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "modsublote", value: "" },
+                          domProps: { value: _vm.modif.sublote },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "sublote",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modmaterial" }
+                          },
+                          [_vm._v("Material calle")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.matvias,
+                                expression: "modif.matvias"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "modmaterial", required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.modif,
+                                  "matvias",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { selected: "" } }, [
+                              _vm._v("Seleccionar")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("ASFALTO")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("ADOQUIN")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "3" } }, [
+                              _vm._v("CEMENTO")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "4" } }, [
+                              _vm._v("LOSETA")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "4" } }, [
+                              _vm._v("PIEDRA")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "5" } }, [
+                              _vm._v("RIPIO")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "6" } }, [
+                              _vm._v("TIERRA")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "7" } }, [
+                              _vm._v("LADRILLO")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", {}, [
+                      _c("h5", [_vm._v("Servicios")]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-check form-check-inline" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.luz,
+                                expression: "modif.luz"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "checkbox",
+                              id: "modluz",
+                              value: "luz1"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.modif.luz)
+                                ? _vm._i(_vm.modif.luz, "luz1") > -1
+                                : _vm.modif.luz
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.modif.luz,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "luz1",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "luz",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "luz",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.modif, "luz", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-check-label",
+                              attrs: { for: "modluz" }
+                            },
+                            [_vm._v("LUZ")]
+                          )
+                        ]
+                      ),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-check form-check-inline" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.agua,
+                                expression: "modif.agua"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "checkbox",
+                              id: "modagua",
+                              value: "agua1"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.modif.agua)
+                                ? _vm._i(_vm.modif.agua, "agua1") > -1
+                                : _vm.modif.agua
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.modif.agua,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "agua1",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "agua",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "agua",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.modif, "agua", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-check-label",
+                              attrs: { for: "modagua" }
+                            },
+                            [_vm._v("AGUA")]
+                          )
+                        ]
+                      ),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-check form-check-inline" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.alcantari,
+                                expression: "modif.alcantari"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "checkbox",
+                              id: "modalcant",
+                              value: "alcant1"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.modif.alcantari)
+                                ? _vm._i(_vm.modif.alcantari, "alcant1") > -1
+                                : _vm.modif.alcantari
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.modif.alcantari,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "alcant1",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "alcantari",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "alcantari",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.modif, "alcantari", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-check-label",
+                              attrs: { for: "modalcant" }
+                            },
+                            [_vm._v("ALCANTARILLADO")]
+                          )
+                        ]
+                      ),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-check form-check-inline" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.telefono,
+                                expression: "modif.telefono"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "checkbox",
+                              id: "modtelefono",
+                              value: "telefono1"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.modif.telefono)
+                                ? _vm._i(_vm.modif.telefono, "telefono1") > -1
+                                : _vm.modif.telefono
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.modif.telefono,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "telefono1",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "telefono",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.modif,
+                                        "telefono",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.modif, "telefono", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-check-label",
+                              attrs: { for: "modtelefono" }
+                            },
+                            [_vm._v("TELEFONO")]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modsuperf" }
+                          },
+                          [_vm._v("superficie del terreno")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.modif.superficie,
+                              expression: "modif.superficie"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            step: "0.01",
+                            min: "0",
+                            id: "modsuperf",
+                            required: ""
+                          },
+                          domProps: { value: _vm.modif.superficie },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.modif,
+                                "superficie",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "modinclin" }
+                          },
+                          [_vm._v("Inclinacion del terreno")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.inclinac,
+                                expression: "modif.inclinac"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { name: "", id: "modinclin" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.modif,
+                                  "inclinac",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("DE 0 A 10")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("DE 11 A 15")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "3" } }, [
+                              _vm._v("MAYOR A 15")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "row", attrs: { id: "areaconst2" } },
+                      [
+                        _vm._m(5),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "modcalidad" }
+                            },
+                            [_vm._v("Calidad")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.modif.vivunifa,
+                                  expression: "modif.vivunifa"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { id: "modcalidad" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.modif,
+                                    "vivunifa",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { value: "", selected: "" } },
+                                [_vm._v("Seleccionar")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "1" } }, [
+                                _vm._v("LUJOSA")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("MUY BUENA")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "3" } }, [
+                                _vm._v("BUENA")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "4" } }, [
+                                _vm._v("ECONOMICA")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "5" } }, [
+                                _vm._v("INTERES SOCIAL")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "6" } }, [
+                                _vm._v("MARGINAL")
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "modsuperterr" }
+                            },
+                            [_vm._v("Superficie const")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.supconst,
+                                expression: "modif.supconst"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              step: "0.01",
+                              min: "0",
+                              value: "0",
+                              id: "modsuperterr"
+                            },
+                            domProps: { value: _vm.modif.supconst },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.modif,
+                                  "supconst",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-label",
+                              attrs: { for: "modantig" }
+                            },
+                            [_vm._v("Antiguedad")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.modif.antconst,
+                                expression: "modif.antconst"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "modantig",
+                              min: "0",
+                              value: "0"
+                            },
+                            domProps: { value: _vm.modif.antconst },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.modif,
+                                  "antconst",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Modificar")]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -43454,8 +45181,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-info" }, [_vm._v("Mod")])
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Registro de Inmueble")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h5", [_vm._v("Datos de Construccion")]),
+      _c("hr")
     ])
   },
   function() {
@@ -43466,7 +45219,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Registro de Inmueble")]
+        [_vm._v("Modificar de Inmueble")]
       ),
       _vm._v(" "),
       _c(
