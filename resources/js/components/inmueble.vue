@@ -436,7 +436,7 @@
                     </div>
                 </div>
                 <hr>        
-                    <button type="submit" class="btn btn-primary" >Modificar</button>
+                    <button type="submit" class="btn btn-primary" id='modificar'>Modificar</button>
                 </form>
             </div>
         </div>     
@@ -501,6 +501,7 @@ export default {
             },
             modificar(){
                 console.log(this.modif);
+                if(this.validarcont($('#modcomun').val())){
                 axios.put('/modificar/'+this.modif.cantidad,this.modif).then(res=>{
                   this.$fire({
                         title: "Guardado",
@@ -519,10 +520,26 @@ export default {
                         type: "error",
                         // timer: 3000
                     })
-                })
+                })}
+                else{
+                    this.$fire({
+                        title: "Error",
+                        text: "El Contribuyente no esta Registrado",
+                        type: "error",})
+                }
                 
             },
-
+            validarcont(com){
+                axios.get('/validar/'+this.modif.comun).then(res=>{
+                    console.log(res.data);
+                    if(res.data>0){
+                        $('#modificar').prop('disabled',false);
+                        return true;
+                    }
+                        $('#modificar').prop('disabled',true);
+                        return false;
+                    })
+            },
             buscar(){
                 axios.get('/buscar/'+this.dato2.comun).then(res=>{
                     console.log(res.data);
@@ -579,6 +596,8 @@ export default {
             },
             recuperar($cc){
                     axios.get('/datoinm/'+$cc).then(res=>{
+                        $('#modificar').prop('disabled',false);
+
                     console.log(res.data);
                     var info=res.data[0];
                     console.log(info['comun']);

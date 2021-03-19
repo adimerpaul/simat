@@ -2518,25 +2518,47 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       console.log(this.modif);
-      axios.put('/modificar/' + this.modif.cantidad, this.modif).then(function (res) {
-        _this3.$fire({
-          title: "Guardado",
-          text: "Correctamente",
-          type: "success",
-          timer: 3000
-        });
 
-        _this3.inm = {};
-        $('#modinmu').modal('hide');
-        _this3.buscar;
-      })["catch"](function (e) {
-        // console.log(e.response.data.message);
-        _this3.$fire({
+      if (this.validarcont($('#modcomun').val())) {
+        axios.put('/modificar/' + this.modif.cantidad, this.modif).then(function (res) {
+          _this3.$fire({
+            title: "Guardado",
+            text: "Correctamente",
+            type: "success",
+            timer: 3000
+          });
+
+          _this3.inm = {};
+          $('#modinmu').modal('hide');
+          _this3.buscar;
+        })["catch"](function (e) {
+          // console.log(e.response.data.message);
+          _this3.$fire({
+            title: "Error",
+            text: e.response.data.message,
+            type: "error" // timer: 3000
+
+          });
+        });
+      } else {
+        this.$fire({
           title: "Error",
-          text: e.response.data.message,
-          type: "error" // timer: 3000
-
+          text: "El Contribuyente no esta Registrado",
+          type: "error"
         });
+      }
+    },
+    validarcont: function validarcont(com) {
+      axios.get('/validar/' + this.modif.comun).then(function (res) {
+        console.log(res.data);
+
+        if (res.data > 0) {
+          $('#modificar').prop('disabled', false);
+          return true;
+        }
+
+        $('#modificar').prop('disabled', true);
+        return false;
       });
     },
     buscar: function buscar() {
@@ -2583,6 +2605,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this6 = this;
 
       axios.get('/datoinm/' + $cc).then(function (res) {
+        $('#modificar').prop('disabled', false);
         console.log(res.data);
         var info = res.data[0];
         console.log(info['comun']);
@@ -45134,7 +45157,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: { type: "submit" }
+                        attrs: { type: "submit", id: "modificar" }
                       },
                       [_vm._v("Modificar")]
                     )

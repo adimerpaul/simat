@@ -182,6 +182,10 @@ class InmController extends Controller
     public function update(Request $request, $cantidad1)
     {
         $con=$request->cantidad;
+        $cont=DB::table('pm01cont')
+        ->where('comun',$request->comun)
+        ->count();
+        if($cont>0){
         $inmueble=array(
 
         'comun'=>$request->comun,
@@ -256,7 +260,7 @@ class InmController extends Controller
         $inmueble['ant_const']= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
         $cont=DB::table('pm01inmu')
         ->where('cantidad',$con)
-        ->update($inmueble);
+        ->update($inmueble);}
     }
 
     /**
@@ -273,5 +277,9 @@ class InmController extends Controller
     public function datoinm($cantidad){
         return Inm::where('cantidad',$cantidad)->get(); 
 
+    }
+
+    public function validar($comun){
+        return Cont::where('comun',$comun)->count();
     }
 }
