@@ -64,11 +64,11 @@
                                     <label for="numcasa">numcasa</label>
                                     <input type="text" class="form-control" id="numcasa" placeholder="numcasa" v-model="dato.numcasa">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-6">
                                     <label for="descrip">descrip</label>
                                     <input type="text" class="form-control" id="descrip" placeholder="descrip" v-model="dato.descrip">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-4">
                                     <label for="nacimient">nacimient</label>
                                     <input type="date" class="form-control" id="nacimient" placeholder="nacimient" v-model="dato.nacimient">
                                 </div>

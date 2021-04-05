@@ -41976,7 +41976,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("div", { staticClass: "form-group col-md-6" }, [
                     _c("label", { attrs: { for: "descrip" } }, [
                       _vm._v("descrip")
                     ]),
@@ -42008,7 +42008,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "nacimient" } }, [
                       _vm._v("nacimient")
                     ]),
@@ -45815,7 +45815,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-2" }, [
+          _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { attrs: { for: "descrip" } }, [_vm._v("descrip")]),
             _vm._v(" "),
             _c("input", {

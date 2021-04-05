@@ -88,7 +88,7 @@
                                     <label for="numcasa">numcasa</label>
                                     <input type="text" class="form-control" id="numcasa" placeholder="numcasa" v-model="dato.numcasa">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-6">
                                     <label for="descrip">descrip</label>
                                     <input type="text" class="form-control" id="descrip" placeholder="descrip" v-model="dato.descrip">
                                 </div>
