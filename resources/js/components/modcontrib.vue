@@ -126,9 +126,12 @@ export default {
             cargar(){
                 axios.get('/cont/'+this.dato2.comun+'/'+this.dato2.tipodocum).then(res=>{
                     console.log(res.data);
+                    if(res.data.length==0)
+                        this.dato={};
+                    else{
                     this.dato=res.data[0];
                     this.dato.nacimient=res.data[0].nacimient.substr(0,10);
-
+                        }
                 })
             },
             modificar(){
