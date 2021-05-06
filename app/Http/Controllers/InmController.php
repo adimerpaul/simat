@@ -39,17 +39,23 @@ class InmController extends Controller
     public function store(Request $request)
     {
         $com=$request->comun;
-        $num=DB::table('pm01inmu')->where('comun',$com)->count();
-        $num++;
+        $complemento=$request->complemento;
+        if((DB::table('pm01inmu')->where('comun',$com)->count())>0)
+        {$num=Inm::where('comun',$com)->max('cantidad');
+        $num1=strlen($num) - 1;
+        $num2=intval(substr($num,$num1) + 1);
+        }
+        else $num2=1;
         $inmueble=new Inm();
         $inmueble->comun=$com;
-        $inmueble->cantidad=$com.'0'.$num;
+        $inmueble->complemento=strtoupper($complemento);
+        $inmueble->cantidad=$com.'0'.$num2;
         $inmueble->flag_inmu=$request->flaginmu;
         $inmueble->gestion=date('Y');
-        $inmueble->var1='0';
+        $inmueble->var1=$request->var1;
         $inmueble->cod_barrio=$request->codbarrio;
         $inmueble->tipocalle=$request->tipocalle;
-        $inmueble->nombrecall=$request->nombrecall;
+        $inmueble->nombrecall=strtoupper($request->nombrecall);
         if($request->numcasa==null)
             $variable='';
         else 
@@ -90,7 +96,7 @@ class InmController extends Controller
             $variable=$request->sublote; 
         $inmueble->sublote=$variable;
 
-        $inmueble->descrip=$request->descrip;
+        $inmueble->descrip=strtoupper($request->descrip);
         $inmueble->mat_vias=$request->matvias;
 
         if ($request->luz)
@@ -114,8 +120,15 @@ class InmController extends Controller
         $inmueble->inclinac=$request->inclinac;
 
         $inmueble->viv_unifa=$request->vivunifa;
+        if($request->vivunifa == null)
+            $inmueble->viv_unifa='';
         $inmueble->prop_horiz='';
         $inmueble->sup_const=$request->supconst;
+        if($request->supconst==null)
+        $inmueble->sup_const=0;
+        if($request->antconst== null)
+        $inmueble->ant_const=0;
+        else
         $inmueble->ant_const= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
 
         $inmueble->var2='0';
@@ -126,7 +139,7 @@ class InmController extends Controller
         $inmueble->cs_manz='';
         $inmueble->cs_lote='';
         $inmueble->cod_caja='SIMAT';
-        $inmueble->bandera='0';
+        $inmueble->bandera='1';
         $inmueble->valor_ha=0.00;
         $inmueble->fecha_reg=now();
         $inmueble->hora_reg=date('H:i:s');
@@ -143,9 +156,8 @@ class InmController extends Controller
         $inmueble->save();
 
         $cont=DB::table('pm01cont')
-        ->where('comun',$comun)
+        ->where('comun',$com)
         ->update(['act_inmu'=>'A']);
-
 
     }
 
@@ -156,9 +168,12 @@ class InmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($comun)
+    public function show($comun,$complemento=null)
     {
-        return Inm::where('comun',$comun)->get(); 
+        if($complemento == null)  
+            return Inm::where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->get(); 
+        else
+            return Inm::where('comun',$comun)->where('complemento',$complemento)->get(); 
     }
 
     /**
@@ -182,17 +197,25 @@ class InmController extends Controller
     public function update(Request $request, $cantidad1)
     {
         $con=$request->cantidad;
+        if($request->complemento == null || $request->complemento =='')
         $cont=DB::table('pm01cont')
         ->where('comun',$request->comun)
+        ->whereNull('complemento')
         ->count();
+        else
+        $cont=DB::table('pm01cont')
+        ->where('comun',$request->comun)
+        ->where('complemento',$request->complemento)
+        ->count();
+
         if($cont>0){
         $inmueble=array(
 
-        'comun'=>$request->comun,
         'flag_inmu'=>$request->flaginmu,
         'cod_barrio'=>$request->codbarrio,
         'tipocalle'=>$request->tipocalle,
-        'nombrecall'=>$request->nombrecall);
+        'var1'=>$request->var1,
+        'nombrecall'=>strtoupper($request->nombrecall));
         if($request->numcasa==null)
             $variable='';
         else 
@@ -260,7 +283,9 @@ class InmController extends Controller
         $inmueble['ant_const']= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
         $cont=DB::table('pm01inmu')
         ->where('cantidad',$con)
-        ->update($inmueble);}
+        ->update($inmueble);
+    
+        }
     }
 
     /**
@@ -279,7 +304,12 @@ class InmController extends Controller
 
     }
 
-    public function validar($comun){
-        return Cont::where('comun',$comun)->count();
+    public function validar($comun,$complemento=null){
+
+        if($complemento == 'null' || $complemento == null)
+            return DB::table('pm01cont')->where('comun',$comun)->whereNull('complemento')->count();
+            else 
+            return DB::table('pm01cont')->where('comun',$comun)->where('complemento',$complemento)->count();
+        
     }
 }

@@ -55,18 +55,19 @@ class ContController extends Controller
 
 
         $d->comun=$request->comun;
+        $d->complemento=strtoupper($request->complemento);
         $d->tipodocum=$request->tipodocum;
         $d->expedido=$request->expedido;
-        $d->paterno=$request->paterno;
-        $d->materno=$request->materno;
-        $d->nombre=$request->nombre;
+        $d->paterno=strtoupper($request->paterno);
+        $d->materno=strtoupper($request->materno);
+        $d->nombre=strtoupper($request->nombre);
         $d->cod_ham=$request->cod_ham;
         $d->cod_barrio=$request->cod_barrio;
         $d->tipocalle=$request->tipocalle;
-        $d->nombrecall=$request->nombrecall;
-        $d->numcasa=$request->numcasa;
+        $d->nombrecall=strtoupper($request->nombrecall);
+        $d->numcasa=strtoupper($request->numcasa);
         $d->telefono=$request->telefono;
-        $d->descrip=$request->descrip;
+        $d->descrip=strtoupper($request->descrip);
         $d->nacimient=$request->nacimient;
         $d->fecha_reg=now();
         $d->save();
@@ -78,12 +79,16 @@ class ContController extends Controller
      * @param  \App\Models\Cont  $cont
      * @return \Illuminate\Http\Response
      */
-    public function show( $comun,$tipodocumen)
+    public function show($tipodocumen,$comun,$complemento=null)
     {
         //
         $comun=$comun;
         $tipodocum=$tipodocumen;
-        return Cont::where('comun',$comun)->where('tipodocum',$tipodocum)->get(); 
+        $complemento=$complemento;
+        if ($complemento == null)
+            return Cont::where('comun',$comun)->whereNull('complemento')->where('tipodocum',$tipodocum)->get(); 
+        else
+            return Cont::where('comun',$comun)->where('complemento',$complemento)->where('tipodocum',$tipodocum)->get(); 
 
     }
 
@@ -110,27 +115,35 @@ class ContController extends Controller
     {
         //
         $comun=$request->comun;
+        $complemento=$request->complemento;
         $tipodocum=$request->tipodocum;
         //$cont=Cont::where('comun',$comun)->where('tipodocum',$tipodocum)->get();  
 
         $cont=array(
        
-        'comun'=>$request->comun,
         'tipodocum'=>$request->tipodocum,
         'expedido'=>$request->expedido,
-        'paterno'=>$request->paterno,
-        'materno'=>$request->materno,
-        'nombre'=>$request->nombre,
+        'paterno'=>strtoupper($request->paterno),
+        'materno'=>strtoupper($request->materno),
+        'nombre'=>strtoupper($request->nombre),
         'cod_ham'=>$request->cod_ham,
         'cod_barrio'=>$request->cod_barrio,
         'tipocalle'=>$request->tipocalle,
-        'nombrecall'=>$request->nombrecall,
-        'numcasa'=>$request->numcasa,
+        'nombrecall'=>strtoupper($request->nombrecall),
+        'numcasa'=>strtoupper($request->numcasa),
         'telefono'=>$request->telefono,
-        'descrip'=>$request->descrip,
+        'descrip'=>strtoupper($request->descrip),
         'nacimient'=>$request->nacimient);
+        if ($complemento==null)
         DB::table('pm01cont')
         ->where('comun',$comun)
+        ->whereNull('complemento')
+        ->where('tipodocum',$tipodocum)
+        ->update($cont);
+        else
+        DB::table('pm01cont')
+        ->where('comun',$comun)
+        ->where('complemento',$complemento)
         ->where('tipodocum',$tipodocum)
         ->update($cont);
     }
@@ -146,10 +159,17 @@ class ContController extends Controller
         //
     }
 
-    public function buscarcont($comun){
-        return Cont::where('comun',$comun)->get(); 
+    public function buscarcont($comun,$complemento=null){
+        $comun=$comun;
+        $complemento=$complemento;//
+        if($complemento==null || $complemento=='')
+           return Cont::where('comun',$comun)->whereNull('complemento')->get(); 
+        else   
+           return Cont::where('comun',$comun)->where('complemento',$complemento)->get(); 
 
     }
+
+    
 
     public function codbarrio(){
         return DB::table('pmbarrio')->select('barrio','codigo')->get();

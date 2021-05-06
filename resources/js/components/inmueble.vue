@@ -3,11 +3,14 @@
       <h1>INMUEBLES DEL CONTRIBUYENTE</h1>
       <form action=""  @submit.prevent="buscar">
             <div class="form-group row  ">
-                <label for="comun" class="form-label">CI/RUN</label>
+                <label for="comun" class="form-label">CI (- comp)</label>
                 <div class="col-md-5">
                     <input type="text" class="form-control" id="comun" required v-model="dato2.comun">
+                </div> -
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="complemento" v-model="dato2.complemento" style="text-transform:uppercase;">
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <button class="btn btn-info" type="submit">Buscar</button> 
                 </div>    
             </div>
@@ -74,11 +77,12 @@
                         <option value="J">JURIDICA</option>
                         <option value="I">INDIVISA</option>
                     </select>
-                    <input type="hidden" name="comun0" id="comun0" v-model='dato.comun' value=''>
+                    <input type="hidden" name="comun0" id="comun0" v-model='dato.comun' >
+                    <input type="hidden" name="complemento0" id="complemento0" v-model='dato.complemento'>
                 </div>
                 <div class="col-md-4">
                     <label for="tipoinm" class="form-label">INMUEBLE</label>
-                    <select class="form-control" id='tipoinm' required @change="cambio">
+                    <select class="form-control" id='tipoinm' required @change="cambio" v-model='dato.var1'>
                         <option value="1" selected>CASA</option>
                         <option value="2">LOTE</option>
                         <option value="3">DEPTO</option>
@@ -118,19 +122,19 @@
         <div class="row">
             <div class="col-md-8">
                 <label for="ncalle" class="form-label">Nombre Calle</label>
-                <input type="text" class="form-control" id="ncalle" required v-model="dato.nombrecall" value=''>
+                <input type="text" class="form-control" id="ncalle" required v-model="dato.nombrecall" value='' style="text-transform:uppercase;">
             
             </div>           
             <div class="col-md-4">
                 <label for="numero" class="form-label">Numero</label>
-                <input type="text" class="form-control" id="numero" required v-model="dato.numcasa" value=''>
+                <input type="text" class="form-control" id="numero" required v-model="dato.numcasa" >
             
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <label for="direccion" class="form-label">Direccion</label>
-                <input type="text" class="form-control" id="direccion" required v-model="dato.descrip" value=''>
+                <input type="text" class="form-control" id="direccion" required v-model="dato.descrip" style="text-transform:uppercase;">
             </div>
 
         </div>
@@ -264,10 +268,15 @@
             <div class="modal-body">
                 <form action="" @submit.prevent="modificar">
                 <div class="row">
-                    <div class="col-mod-4">
-                        <label for="modcomun" class="form-label">CI/RUN</label>
-                        <input type="text" class="form-control" name="modcomun" id="modcomun" v-model='modif.comun' required>
                         <input type="hidden" name="modcantidad" id="modcantidad" v-model='modif.cantidad' required>
+                    <div class="col-md-4">
+                        <label for="modcomun" class="form-label">CI</label>
+                        <input type="text" class="form-control" name="modcomun" id="modcomun" v-model='modif.comun' required>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="modcomplemento" class="form-label">(-comp)</label>
+                        <input type="text" class="form-control" name="modcomplemento" id="modcomplemento" v-model='modif.complemento'>
+
                     </div>
                     <div class="col-md-4">
                         <label for="modtipocont" class="form-label">TIPO</label>
@@ -280,7 +289,7 @@
                     </div>
                     <div class="col-md-4">
                             <label for="modtipoinm" class="form-label">INMUEBLE</label>
-                            <select class="form-control" id='modtipoinm' required @change="cambio2">
+                            <select class="form-control" id='modtipoinm' required @change="cambio2" v-model='modif.var1'>
                                 <option value="1" selected>CASA</option>
                                 <option value="2">LOTE</option>
                                 <option value="3">DEPTO</option>
@@ -318,17 +327,17 @@
                 <div class="row">
                     <div class="col-md-8">
                         <label for="modncalle" class="form-label">Nombre Calle</label>
-                        <input type="text" class="form-control" id="modncalle" required v-model="modif.nombrecall" >
+                        <input type="text" class="form-control" id="modncalle" required v-model="modif.nombrecall" style="text-transform:uppercase;">
                     </div>           
                     <div class="col-md-4">
                         <label for="modnumero" class="form-label">Numero</label>
-                        <input type="text" class="form-control" id="modnumero" required v-model="modif.numcasa" >
+                        <input type="text" class="form-control" id="modnumero" required v-model="modif.numcasa" style="text-transform:uppercase;">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label for="moddireccion" class="form-label">Direccion</label>
-                        <input type="text" class="form-control" id="moddireccion" required v-model="modif.descrip" >
+                        <input type="text" class="form-control" id="moddireccion" required v-model="modif.descrip"  style="text-transform:uppercase;">
                     </div>
                 </div>
                 <div class='row' id='areadept2' style="display:none">
@@ -349,7 +358,7 @@
                 <div class='row'>
                     <div class="col-md-2">
                         <label for="moddistrito" class="form-label">Distrito</label>
-                        <input type="text" class="form-control" id="moddistrito" required v-model="modif.distrito" value=''>
+                        <input type="text" class="form-control" id="moddistrito" required v-model="modif.distrito" value='' style="text-transform:uppercase;">
                     </div>
                     <div class="col-md-2">
                         <label for="modmanzano" class="form-label">manzano</label>
@@ -465,7 +474,7 @@ export default {
         mounted() {
             // console.log('Component mounted.');
             $('#areadept').css("display","none");
-
+            this.dato2.complemento="";
             axios.get('/cbarrio').then(res=>{
                 this.barrio=res.data;
             });
@@ -480,6 +489,8 @@ export default {
         methods:{
             registrar(){
                 console.log(this.dato);
+                this.dato.comun=this.dato2.comun;
+                this.dato.complemento=this.dato2.complemento;
                 axios.post('/registrar',this.dato).then(res=>{
                   this.$fire({
                         title: "Guardado",
@@ -496,12 +507,24 @@ export default {
                         type: "error",
                         // timer: 3000
                     })
-                })
-                
+                })                
+            },
+            validarcont(){
+                axios.get('/validar/'+this.modif.comun+'/'+this.modif.complemento).then(res=>{
+                    console.log(res.data > 0);
+                    if(res.data > 0){
+                        $('#modificar').prop('disabled',false);
+                        this.validar=true;
+                    }
+                    else{
+                        $('#modificar').prop('disabled',true);
+                        this.validar=false;}
+                    })
             },
             modificar(){
                 console.log(this.modif);
-                if(this.validarcont($('#modcomun').val())){
+                console.log(this.validar);
+                if(this.validar){
                 axios.put('/modificar/'+this.modif.cantidad,this.modif).then(res=>{
                   this.$fire({
                         title: "Guardado",
@@ -529,21 +552,12 @@ export default {
                 }
                 
             },
-            validarcont(com){
-                axios.get('/validar/'+this.modif.comun).then(res=>{
-                    console.log(res.data);
-                    if(res.data>0){
-                        $('#modificar').prop('disabled',false);
-                        return true;
-                    }
-                        $('#modificar').prop('disabled',true);
-                        return false;
-                    })
-            },
+
             buscar(){
-                axios.get('/buscar/'+this.dato2.comun).then(res=>{
+                axios.get('/buscar/'+this.dato2.comun+'/'+this.dato2.complemento).then(res=>{
+                    console.log(this.dato2);
                     console.log(res.data);
-                    if(res.data!=''){
+                    if(res.data.length!=0){
                         //this.dato=res.data[0];
                         this.dato.comun=res.data[0].comun;
                         console.log( $('#comun0').prop('value'));
@@ -565,22 +579,22 @@ export default {
 
             cambio(){
                 console.log($('#tipoinm').val());
-                if($('#tipoinm').val()==3)
+                if(this.dato.var1==3)
                     $('#areadept').css("display","");
                 else
                     $('#areadept').css("display","none");
-                if($('#tipoinm').val()!=2)
+                if(this.dato.var1!=2)
                     $('#areaconst').css("display","");
                 else
                     $('#areaconst').css("display","none");                    
             },
 
             cambio2(){
-                if($('#modtipoinm').val()==3)
+                if(this.modif.var1==3)
                     $('#areadept2').css("display","");
                 else
                     $('#areadept2').css("display","none");
-                if($('#modtipoinm').val()!=2)
+                if(this.modif.var1!=2)
                     $('#areaconst2').css("display","");
                 else
                     $('#areaconst2').css("display","none");                    
@@ -589,7 +603,7 @@ export default {
 
             listar(){
 
-                axios.get('/inm/'+this.dato2.comun).then(res=>{
+                axios.get('/inm/'+this.dato2.comun+'/'+this.dato2.complemento).then(res=>{
                     console.log(res.data);
                     this.inm=res.data;
                 })
@@ -600,8 +614,9 @@ export default {
 
                     console.log(res.data);
                     var info=res.data[0];
-                    console.log(info['comun']);
                     this.modif={'comun':info['comun']
+                    ,'complemento':info['complemento']
+                    ,'var1':info['var1'] 
                     ,'cantidad':info['cantidad']
                     ,'flaginmu':info['flag_inmu']
                     ,'codbarrio':info['cod_barrio']

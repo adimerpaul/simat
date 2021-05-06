@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header bg-success text-white">
                         <i class="fa fa-user-plus"></i>
-                        Contribuyente
+                        Registro Contribuyente
                     </div>
                     <div class="card-body">
                         <form @submit.prevent="guardar">
@@ -14,63 +14,95 @@
                                     <label for="tipodocumento">Tipo documento</label>
                                     <!--                                    <input type="text" class="form-control" id="tipodocumento" placeholder="Tipo Documento">-->
                                     <select name="tipodocumento" id="tipodocumento" class="form-control" required v-model="dato.tipodocum">
-                                        <option value="1">Carnet identidad</option>
+                                        <option value="1" selected>CARNET DE IDENTIDAD</option>
+                                        <option value="2">RUN</option>
+                                        <option value="3">PASAPORTE</option>
+                                        <option value="4">CI EXTR</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="ci">Carnet de identidad</label>
-                                    <input type="text" class="form-control" id="ci" placeholder="Carnet de identidad" required v-model="dato.comun">
+                                    <input type="text" class="form-control" id="ci" placeholder="Carnet de identidad" required v-model="dato.comun" style="text-transform:uppercase;"> 
+                                </div> - 
+                                <div class="form-group col-md-2">
+                                    <label for="complemento">Complemento</label>
+                                    <input type="text" class="form-control" id="complemento" placeholder="XX" v-model="dato.complemento" style="text-transform:uppercase;" min="2" max="2">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="expedido">Expedido</label>
                                     <!--                                    <input type="text" class="form-control" id="expedido" placeholder="Tipo Documento">-->
                                     <select name="expedido" id="expedido" class="form-control" required v-model="dato.expedido">
-                                        <option value="O">ORURO</option>
+                                        <option value="OR" selected>ORURO</option>
+                                        <option value="LP">LA PAZ</option>
+                                        <option value="PT">POTOSI</option>
+                                        <option value="PD">PANDO</option>
+                                        <option value="BE">BENI</option>
+                                        <option value="SC">SANTA CRUZ</option>
+                                        <option value="TJ">TARIJA</option>
+                                        <option value="CB">COCHABAMBA</option>
+                                        <option value="CH">SUCRE</option>
+                                        <option value="EX">CI EXTR</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2">
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-3">
                                     <label for="paterno">Paterno</label>
-                                    <input type="text" class="form-control" id="paterno" placeholder="Paterno" v-model="dato.paterno">
+                                    <input type="text" class="form-control" id="paterno" placeholder="Paterno" v-model="dato.paterno" style="text-transform:uppercase;">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="materno">Materno</label>
-                                    <input type="text" class="form-control" id="materno" placeholder="Materno" v-model="dato.materno">
+                                    <input type="text" class="form-control" id="materno" placeholder="Materno" v-model="dato.materno" style="text-transform:uppercase;">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" v-model="dato.nombre">
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre"  required v-model="dato.nombre" style="text-transform:uppercase;">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="telefono">Celular</label>
-                                    <input type="text" class="form-control" id="telefono" placeholder="Celular" v-model="dato.telefono">
+                                    <input type="text" class="form-control" id="telefono" placeholder="Celular" requiered v-model="dato.telefono" style="text-transform:uppercase;">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="cod_ham">cod_ham</label>
-                                    <input type="text" class="form-control" id="cod_ham" placeholder="cod_ham" v-model="dato.cod_ham">
+                                    <label for="cod_ham">Cod Ham</label>
+                                    <select  class="form-control" v-model="dato.cod_ham"  name="cod_ham" id="cod_ham" required>
+                                        <option v-for="i in ham"  v-bind:value="i.codigo" >
+                                            {{i.alcaldia}}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="cod_barrio">cod_barrio</label>
-                                    <input type="text" class="form-control" id="cod_barrio" placeholder="cod_barrio" v-model="dato.cod_barrio">
+                                    <label for="cod_barrio">Cod Barrio</label>
+                                    <select  class="form-control" v-model="dato.cod_barrio"  name="cod_barrio" id="cod_barrio" required>
+                                        <option v-for="f in barrio" v-bind:value="f.codigo">
+                                            {{f.barrio}}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="tipocalle">tipocalle</label>
-                                    <input type="text" class="form-control" id="tipocalle" placeholder="tipocalle" v-model="dato.tipocalle">
+                                    <label for="tipocalle">Tipo Calle</label>
+                                    <select class="form-control" id='tipocalle' required v-model="dato.tipocalle">
+                                        <option value="CA" selected>CALLE</option>
+                                        <option value="AV">AVENIDA</option>
+                                        <option value="PL">PLAZA</option>
+                                        <option value="PJ">PASAJE</option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="nombrecall">nombrecall</label>
-                                    <input type="text" class="form-control" id="nombrecall" placeholder="nombrecall" v-model="dato.nombrecall">
+                                    <label for="nombrecall">Nombre Calle</label>
+                                    <input type="text" class="form-control" id="nombrecall" placeholder="nombrecall" v-model="dato.nombrecall" style="text-transform:uppercase;">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="numcasa">numcasa</label>
-                                    <input type="text" class="form-control" id="numcasa" placeholder="numcasa" v-model="dato.numcasa">
+                                    <label for="numcasa">Numero Casa</label>
+                                    <input type="text" class="form-control" id="numcasa" placeholder="numcasa" v-model="dato.numcasa" style="text-transform:uppercase;">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="descrip">descrip</label>
-                                    <input type="text" class="form-control" id="descrip" placeholder="descrip" v-model="dato.descrip">
+                                    <label for="descrip">Direccion</label>
+                                    <input type="text" class="form-control" id="descrip" placeholder="Domicilio" v-model="dato.descrip" style="text-transform:uppercase;">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="nacimient">nacimient</label>
-                                    <input type="date" class="form-control" id="nacimient" placeholder="nacimient" v-model="dato.nacimient">
+                                    <label for="nacimient">Fec Nacimiento</label>
+                                    <input type="date" class="form-control" id="nacimient" required placeholder="nacimient" v-model="dato.nacimient">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success btn-block"  ><i class="fa fa-user-plus"></i>Registrar</button>
@@ -86,8 +118,19 @@
     export default {
         data:function(){
             return {
-                dato:{}
+                dato:{},
+                barrio:[],
+                ham:[],
             }
+        },
+        mounted() {
+            // console.log('Component mounted.');
+            axios.get('/cbarrio').then(res=>{
+                this.barrio=res.data;
+            });
+            axios.get('/cham').then(res=>{
+                this.ham=res.data;
+            });
         },
         methods:{
             guardar(){
@@ -114,5 +157,8 @@
         // mounted() {
         //     console.log('Component mounted.')
         // }
+      
     }
+ 
 </script>
+
