@@ -40,6 +40,10 @@ class InmController extends Controller
     {
         $com=$request->comun;
         $complemento=$request->complemento;
+        if($complemento==null||$complemento=='')
+            $com=$request->comun;
+        else
+            $com=$request->comun.'-'.$request->complemento;
         if((DB::table('pm01inmu')->where('comun',$com)->count())>0)
         {$num=Inm::where('comun',$com)->max('cantidad');
         $num1=strlen($num) - 1;
@@ -47,7 +51,7 @@ class InmController extends Controller
         }
         else $num2=1;
         $inmueble=new Inm();
-        $inmueble->comun=$com;
+        $inmueble->comun=strtoupper($com);
         $inmueble->complemento=strtoupper($complemento);
         if($num2<10)
             $inmueble->cantidad=$com.'0'.$num2;

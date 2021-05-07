@@ -484,9 +484,9 @@ export default {
         },
         methods:{
             registrar(){
-                console.log(this.dato);
                 this.dato.comun=this.dato2.comun;
                 this.dato.complemento=this.dato2.complemento;
+                console.log(this.dato);
                 axios.post('/registrar',this.dato).then(res=>{
                   this.$fire({
                         title: "Guardado",
@@ -495,6 +495,9 @@ export default {
                         timer: 3000
                     })
                     this.dato={};
+                    $('#exampleModal').modal('hide');
+                    this.buscar();
+
                 }).catch(e=>{
                     // console.log(e.response.data.message);
                     this.$fire({
