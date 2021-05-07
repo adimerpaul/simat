@@ -85,8 +85,8 @@ class ContController extends Controller
         $comun=$comun;
         $tipodocum=$tipodocumen;
         $complemento=$complemento;
-        if ($complemento == null)
-            return Cont::where('comun',$comun)->whereNull('complemento')->where('tipodocum',$tipodocum)->get(); 
+        if ($complemento == null || $complemento=='')
+            return Cont::where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->where('tipodocum',$tipodocum)->get(); 
         else
             return Cont::where('comun',$comun)->where('complemento',$complemento)->where('tipodocum',$tipodocum)->get(); 
 
@@ -134,10 +134,10 @@ class ContController extends Controller
         'telefono'=>$request->telefono,
         'descrip'=>strtoupper($request->descrip),
         'nacimient'=>$request->nacimient);
-        if ($complemento==null)
+        if ($complemento==null || $complemento=='')
         DB::table('pm01cont')
         ->where('comun',$comun)
-        ->whereNull('complemento')
+        ->whereNull('complemento')->orWhere('complemento','')
         ->where('tipodocum',$tipodocum)
         ->update($cont);
         else
@@ -163,10 +163,9 @@ class ContController extends Controller
         $comun=$comun;
         $complemento=$complemento;//
         if($complemento==null || $complemento=='')
-           return Cont::where('comun',$comun)->whereNull('complemento')->get(); 
+           return Cont::where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->get(); 
         else   
            return Cont::where('comun',$comun)->where('complemento',$complemento)->get(); 
-
     }
 
     
@@ -174,12 +173,12 @@ class ContController extends Controller
     public function codbarrio(){
         return DB::table('pmbarrio')->select('barrio','codigo')->get();
     }
+
     public function codham(){
         return DB::table('pmcodham')->select('codigo','alcaldia')->orderByDesc('alcaldia')->get();
-        
     }
+
     public function codzona(){
-        return DB::table('pmzona')->select('zona','descrip')->get();
-        
+        return DB::table('pmzona')->select('zona','descrip')->get(); 
     }
 }

@@ -51,7 +51,7 @@ class InmController extends Controller
         $inmueble->complemento=strtoupper($complemento);
         $inmueble->cantidad=$com.'0'.$num2;
         $inmueble->flag_inmu=$request->flaginmu;
-        $inmueble->gestion=date('Y');
+        $inmueble->gestion=0;
         $inmueble->var1=$request->var1;
         $inmueble->cod_barrio=$request->codbarrio;
         $inmueble->tipocalle=$request->tipocalle;
@@ -170,7 +170,7 @@ class InmController extends Controller
      */
     public function show($comun,$complemento=null)
     {
-        if($complemento == null)  
+        if($complemento == null||$complemento=='')  
             return Inm::where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->get(); 
         else
             return Inm::where('comun',$comun)->where('complemento',$complemento)->get(); 
@@ -200,7 +200,7 @@ class InmController extends Controller
         if($request->complemento == null || $request->complemento =='')
         $cont=DB::table('pm01cont')
         ->where('comun',$request->comun)
-        ->whereNull('complemento')
+        ->whereNull('complemento')->orWhere('complemento','')
         ->count();
         else
         $cont=DB::table('pm01cont')
@@ -307,7 +307,7 @@ class InmController extends Controller
     public function validar($comun,$complemento=null){
 
         if($complemento == 'null' || $complemento == null)
-            return DB::table('pm01cont')->where('comun',$comun)->whereNull('complemento')->count();
+            return DB::table('pm01cont')->where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->count();
             else 
             return DB::table('pm01cont')->where('comun',$comun)->where('complemento',$complemento)->count();
         
