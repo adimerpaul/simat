@@ -53,9 +53,10 @@ class ContController extends Controller
         $d->cod_caja="";
         $d->hora_reg="";
 
-
+        if($request->complemento==null||$request->complemento=='')
         $d->comun=$request->comun;
-        $d->complemento=strtoupper($request->complemento);
+        else 
+        $d->comun=$request->comun.'-'.strtoupper($request->complemento);
         $d->tipodocum=$request->tipodocum;
         $d->expedido=$request->expedido;
         $d->paterno=strtoupper($request->paterno);
@@ -82,13 +83,12 @@ class ContController extends Controller
     public function show($tipodocumen,$comun,$complemento=null)
     {
         //
-        $comun=$comun;
         $tipodocum=$tipodocumen;
-        $complemento=$complemento;
-        if ($complemento == null || $complemento=='')
-            return Cont::where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->where('tipodocum',$tipodocum)->get(); 
+        if($complemento==null||$complemento=='')
+            $bus=$comun;
         else
-            return Cont::where('comun',$comun)->where('complemento',$complemento)->where('tipodocum',$tipodocum)->get(); 
+            $bus=$comun.'-'.$complemento;
+            return Cont::where('comun',$bus)->where('tipodocum',$tipodocum)->get(); 
 
     }
 
@@ -115,7 +115,6 @@ class ContController extends Controller
     {
         //
         $comun=$request->comun;
-        $complemento=$request->complemento;
         $tipodocum=$request->tipodocum;
         //$cont=Cont::where('comun',$comun)->where('tipodocum',$tipodocum)->get();  
 
@@ -134,16 +133,9 @@ class ContController extends Controller
         'telefono'=>$request->telefono,
         'descrip'=>strtoupper($request->descrip),
         'nacimient'=>$request->nacimient);
-        if ($complemento==null || $complemento=='')
+
         DB::table('pm01cont')
         ->where('comun',$comun)
-        ->whereNull('complemento')->orWhere('complemento','')
-        ->where('tipodocum',$tipodocum)
-        ->update($cont);
-        else
-        DB::table('pm01cont')
-        ->where('comun',$comun)
-        ->where('complemento',$complemento)
         ->where('tipodocum',$tipodocum)
         ->update($cont);
     }
@@ -163,9 +155,10 @@ class ContController extends Controller
         $comun=$comun;
         $complemento=$complemento;//
         if($complemento==null || $complemento=='')
-           return Cont::where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->get(); 
+            $bus=$comun;
         else   
-           return Cont::where('comun',$comun)->where('complemento',$complemento)->get(); 
+            $bus=$comun.'-'.$complemento;
+           return Cont::where('comun',$bus)->get(); 
     }
 
     

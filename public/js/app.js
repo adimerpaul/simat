@@ -2509,10 +2509,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2603,7 +2599,8 @@ __webpack_require__.r(__webpack_exports__);
 
           _this4.inm = {};
           $('#modinmu').modal('hide');
-          _this4.buscar;
+
+          _this4.buscar();
         })["catch"](function (e) {
           // console.log(e.response.data.message);
           _this4.$fire({
@@ -2699,6 +2696,8 @@ __webpack_require__.r(__webpack_exports__);
         _this7.modif.vivunifa = info['viv_unifa'];
         _this7.modif.supconst = info['sup_const'];
         _this7.modif.antconst = info['ant_const'];
+
+        _this7.cambio2();
       });
     }
   }
@@ -44165,47 +44164,6 @@ var render = function() {
                                 return
                               }
                               _vm.$set(_vm.modif, "comun", $event.target.value)
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "form-label",
-                            attrs: { for: "modcomplemento" }
-                          },
-                          [_vm._v("(-comp)")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.modif.complemento,
-                              expression: "modif.complemento"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "modcomplemento",
-                            id: "modcomplemento"
-                          },
-                          domProps: { value: _vm.modif.complemento },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.modif,
-                                "complemento",
-                                $event.target.value
-                              )
                             }
                           }
                         })

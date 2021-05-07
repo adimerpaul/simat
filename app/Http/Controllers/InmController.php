@@ -49,7 +49,10 @@ class InmController extends Controller
         $inmueble=new Inm();
         $inmueble->comun=$com;
         $inmueble->complemento=strtoupper($complemento);
-        $inmueble->cantidad=$com.'0'.$num2;
+        if($num2<10)
+            $inmueble->cantidad=$com.'0'.$num2;
+        else    
+            $inmueble->cantidad=$com.$num2;
         $inmueble->flag_inmu=$request->flaginmu;
         $inmueble->gestion=0;
         $inmueble->var1=$request->var1;
@@ -170,10 +173,11 @@ class InmController extends Controller
      */
     public function show($comun,$complemento=null)
     {
-        if($complemento == null||$complemento=='')  
-            return Inm::where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->get(); 
+        if($complemento == null||$complemento=='')
+            $bus=$comun;  
         else
-            return Inm::where('comun',$comun)->where('complemento',$complemento)->get(); 
+            $bus=$comun.'-'.$complemento;
+        return Inm::where('comun',$bus)->get(); 
     }
 
     /**
@@ -197,20 +201,14 @@ class InmController extends Controller
     public function update(Request $request, $cantidad1)
     {
         $con=$request->cantidad;
-        if($request->complemento == null || $request->complemento =='')
+        $bus=$request->comun;
         $cont=DB::table('pm01cont')
-        ->where('comun',$request->comun)
-        ->whereNull('complemento')->orWhere('complemento','')
-        ->count();
-        else
-        $cont=DB::table('pm01cont')
-        ->where('comun',$request->comun)
-        ->where('complemento',$request->complemento)
+        ->where('comun',$bus)
         ->count();
 
         if($cont>0){
         $inmueble=array(
-
+            'comun'=>$bus,
         'flag_inmu'=>$request->flaginmu,
         'cod_barrio'=>$request->codbarrio,
         'tipocalle'=>$request->tipocalle,
@@ -279,9 +277,11 @@ class InmController extends Controller
         $inmueble['inclinac']=$request->inclinac;
 
         $inmueble['viv_unifa']=$request->vivunifa;
+        if($request->vivunifa==null)
+            $inmueble['viv_unifa']='';
         $inmueble['sup_const']=$request->supconst;
         $inmueble['ant_const']= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
-        $cont=DB::table('pm01inmu')
+        DB::table('pm01inmu')
         ->where('cantidad',$con)
         ->update($inmueble);
     
@@ -307,9 +307,10 @@ class InmController extends Controller
     public function validar($comun,$complemento=null){
 
         if($complemento == 'null' || $complemento == null)
-            return DB::table('pm01cont')->where('comun',$comun)->whereNull('complemento')->orWhere('complemento','')->count();
-            else 
-            return DB::table('pm01cont')->where('comun',$comun)->where('complemento',$complemento)->count();
+            $bus=$comun;    
+        else 
+            $bus=$comun.'-'.$complemento;
+        return DB::table('pm01cont')->where('comun',$comun)->count();
         
     }
 }

@@ -273,11 +273,7 @@
                         <label for="modcomun" class="form-label">CI</label>
                         <input type="text" class="form-control" name="modcomun" id="modcomun" v-model='modif.comun' required>
                     </div>
-                    <div class="col-md-2">
-                        <label for="modcomplemento" class="form-label">(-comp)</label>
-                        <input type="text" class="form-control" name="modcomplemento" id="modcomplemento" v-model='modif.complemento'>
-
-                    </div>
+   
                     <div class="col-md-4">
                         <label for="modtipocont" class="form-label">TIPO</label>
                         <select class="form-control" id='modtipocont'  v-model='modif.flaginmu' required> 
@@ -534,7 +530,7 @@ export default {
                     })
                     this.inm={};
                     $('#modinmu').modal('hide');
-                    this.buscar;
+                    this.buscar();
                 }).catch(e=>{
                     // console.log(e.response.data.message);
                     this.$fire({
@@ -658,7 +654,7 @@ export default {
                     this.modif.vivunifa=info['viv_unifa'];
                     this.modif.supconst=info['sup_const'];
                     this.modif.antconst=info['ant_const'];
-
+                    this.cambio2();
 
                 }) 
             }
