@@ -44,6 +44,7 @@
                                 </a>
                             </li>
                         </router-link>
+                        @if(Auth::user())
                         <router-link
                             to="/contribuyente"
                             v-slot="{ href, route, navigate, isActive, isExactActive }"
@@ -76,6 +77,7 @@
                                 </a>
                             </li>
                         </router-link>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

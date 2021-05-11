@@ -31,9 +31,9 @@ Route::get('/inmueble', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/guardar', [App\Http\Controllers\ContController::class, 'store'])->name('home');
-Route::post('/registrar', [App\Http\Controllers\InmController::class, 'store'])->name('home');
-Route::put('/modificar/{cantidad}', [App\Http\Controllers\InmController::class, 'update'])->name('home');
+Route::post('/guardar', [App\Http\Controllers\ContController::class, 'store'])->middleware('auth');
+Route::post('/registrar', [App\Http\Controllers\InmController::class, 'store'])->middleware('auth');
+Route::put('/modificar/{cantidad}', [App\Http\Controllers\InmController::class, 'update'])->middleware('auth');
 Route::get('/cont/{tipo}/{comun}/{complemento?}', [App\Http\Controllers\ContController::class, 'show'])->name('home');
 Route::get('/inm/{comun}/{complemento?}', [App\Http\Controllers\InmController::class, 'show'])->name('home');
 Route::get('/datoinm/{cantidad}', [App\Http\Controllers\InmController::class, 'datoinm'])->name('home');
@@ -42,4 +42,4 @@ Route::get('/cham', [App\Http\Controllers\ContController::class, 'codham'])->nam
 Route::get('/zona', [App\Http\Controllers\ContController::class, 'codzona'])->name('home');
 Route::get('/buscar/{comun}/{complemento?}', [App\Http\Controllers\ContController::class, 'buscarcont'])->name('home');
 Route::get('/validar/{comun}/{complemento?}', [App\Http\Controllers\InmController::class, 'validar'])->name('home');
-Route::post('/modifica/{comun}', [App\Http\Controllers\ContController::class, 'update'])->name('home');
+Route::post('/modifica/{comun}', [App\Http\Controllers\ContController::class, 'update'])->middleware('auth');
