@@ -138,6 +138,11 @@ class InmController extends Controller
         else
         $inmueble->ant_const= $request->antconst;
 
+        if($request->gestion== null)
+        $inmueble->gestion=0;
+        else
+        $inmueble->gestion= $request->gestion;
+
         $inmueble->var2='0';
         $inmueble->deuda='0';
         $inmueble->var3='0';
@@ -285,6 +290,7 @@ class InmController extends Controller
             $inmueble['viv_unifa']='';
         $inmueble['sup_const']=$request->supconst;
         $inmueble['ant_const']= $request->antconst;
+        $inmueble['gestion']= $request->gestion;
         DB::table('pm01inmu')
         ->where('cantidad',$con)
         ->update($inmueble);

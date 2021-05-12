@@ -219,6 +219,10 @@
                     <option value="3">MAYOR A 15</option>
                 </select>
             </div>
+            <div class="col-md-4">
+                <label for="gestion" class="form-label">Gestion Cobro</label>
+                <input type="number" class="form-control" id="gestion"  min=0 value=0 v-model="dato.gestion">
+            </div>
         </div>
         <div class="row" id='areaconst'>
             <div class="col-md-12"><h5>Datos de Construccion</h5><hr></div>
@@ -242,6 +246,8 @@
                 <label for="antig" class="form-label">Antiguedad</label>
                 <input type="number" class="form-control" id="antig"  min=0 value=0 v-model="dato.antconst">
             </div>
+
+
         </div>
 <hr>
                 <button type="submit" class="btn btn-primary" >Registrar</button>
@@ -416,6 +422,10 @@
                             <option value="3">MAYOR A 15</option>
                         </select>
                     </div>
+                    <div class="col-md-4">
+                        <label for="modgestion" class="form-label">Gestion Cobro</label>
+                        <input type="number" class="form-control" id="modgestion"  min=0 value=0 v-model="modif.gestion">
+                    </div>
                 </div>
                 <div class="row" id='areaconst2'>
                     <div class="col-md-12"><h5>Datos de Construccion</h5><hr></div>
@@ -439,6 +449,7 @@
                         <label for="modantig" class="form-label">Antiguedad</label>
                         <input type="number" class="form-control" id="modantig"  min=0 value=0 v-model="modif.antconst">
                     </div>
+
                 </div>
                 <hr>        
                     <button type="submit" class="btn btn-primary" id='modificar'>Modificar</button>
@@ -657,6 +668,7 @@ export default {
                     this.modif.vivunifa=info['viv_unifa'];
                     this.modif.supconst=info['sup_const'];
                     this.modif.antconst=info['ant_const'];
+                    this.modif.gestion=info['gestion'];
                     this.cambio2();
 
                 }) 
