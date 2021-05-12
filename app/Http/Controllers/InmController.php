@@ -136,7 +136,7 @@ class InmController extends Controller
         if($request->antconst== null)
         $inmueble->ant_const=0;
         else
-        $inmueble->ant_const= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
+        $inmueble->ant_const= $request->antconst;
 
         $inmueble->var2='0';
         $inmueble->deuda='0';
@@ -284,7 +284,7 @@ class InmController extends Controller
         if($request->vivunifa==null)
             $inmueble['viv_unifa']='';
         $inmueble['sup_const']=$request->supconst;
-        $inmueble['ant_const']= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
+        $inmueble['ant_const']= $request->antconst;
         DB::table('pm01inmu')
         ->where('cantidad',$con)
         ->update($inmueble);
