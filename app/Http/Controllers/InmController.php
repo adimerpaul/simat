@@ -180,11 +180,11 @@ class InmController extends Controller
             ->where('comun',$com)
             ->update(['act_inmu'=>'A']);
 
-            $log=new Log();
-            $log->actividad='Registro Inm '.$inmueble->cantidad;
-            $log->iduser=Auth::user()->id;
-            $log->nombre=Auth::user()->name;
-            $log->save();
+            //$log=new Log();
+           // $log->actividad='Registro Inm '.$inmueble->cantidad;
+           // $log->iduser=Auth::user()->id;
+           // $log->nombre=Auth::user()->name;
+           // $log->save();
         }
 
     }
