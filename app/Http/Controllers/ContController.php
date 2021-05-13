@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cont;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -73,11 +74,11 @@ class ContController extends Controller
         $d->fecha_reg=now();
         $d->save();
 
-        $log=new Log();
-        $log->actividad='Registro Contrib '.$d->comun;
-        $log->iduser=Auth::user()->id;
-        $log->nombre=Auth::user()->name;
-        $log->save();
+        //$log=new Log();
+        //$log->actividad='Registro Contrib '.$d->comun;
+        //$log->iduser=Auth::user()->id;
+        //$log->nombre=Auth::user()->name;
+        //$log->save();
 
     }
 
