@@ -312,13 +312,13 @@ class InmController extends Controller
         ->where('cantidad',$con)
         ->update($inmueble);
 
-        if($resultado){
-            $log=new Log();
-            $log->actividad='Modifica Inm '.$con;
-            $log->iduser=Auth::user()->id;
-            $log->nombre=Auth::user()->name;
-            $log->save();
-        }
+        //if($resultado){
+            //$log=new Log();
+            //$log->actividad='Modifica Inm '.$con;
+            //$log->iduser=Auth::user()->id;
+            //$log->nombre=Auth::user()->name;
+            //$log->save();
+       // }
         
     
         }
