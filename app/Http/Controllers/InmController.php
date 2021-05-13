@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Inm;
 use App\Models\Cont;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\DB;
 
 class InmController extends Controller
@@ -45,18 +48,21 @@ class InmController extends Controller
         else
             $com=$request->comun.'-'.$request->complemento;
         if((DB::table('pm01inmu')->where('comun',$com)->count())>0)
-        {$num=Inm::where('comun',$com)->max('cantidad');
-        $num1=strlen($num) - 1;
-        $num2=intval(substr($num,$num1) + 1);
+        {$num=Inm::where('comun',$com)->count();
+        
+            $num2=$num+ 1;
+            //echo $num1; 
+            //exit;
+        //$num2=intval(substr($num,$num1) + 1);
         }
         else $num2=1;
         $inmueble=new Inm();
         $inmueble->comun=strtoupper($com);
         $inmueble->complemento=strtoupper($complemento);
         if($num2<10)
-            $inmueble->cantidad=$com.'0'.$num2;
+            $inmueble->cantidad=strtoupper($com.'0'.$num2);
         else    
-            $inmueble->cantidad=$com.$num2;
+            $inmueble->cantidad=strtoupper($com.$num2);
         $inmueble->flag_inmu=$request->flaginmu;
         $inmueble->gestion=0;
         $inmueble->var1=$request->var1;
@@ -165,11 +171,21 @@ class InmController extends Controller
         $inmueble->l080='F';
         $inmueble->l080terren=0.00;
         $inmueble->l080constr=0.00;
-        $inmueble->save();
+        $resultado=$inmueble->save();
+        //echo 1;
+        //exit;
+        
+        if($resultado){
+            $cont=DB::table('pm01cont')
+            ->where('comun',$com)
+            ->update(['act_inmu'=>'A']);
 
-        $cont=DB::table('pm01cont')
-        ->where('comun',$com)
-        ->update(['act_inmu'=>'A']);
+            $log=new Log();
+            $log->actividad='Registro Inm '.$inmueble->cantidad;
+            $log->iduser=Auth::user()->id;
+            $log->nombre=Auth::user()->name;
+            $log->save();
+        }
 
     }
 
@@ -209,7 +225,7 @@ class InmController extends Controller
      */
     public function update(Request $request, $cantidad1)
     {
-        $con=$request->cantidad;
+        $con=strtoupper($request->cantidad);
         $bus=$request->comun;
         $cont=DB::table('pm01cont')
         ->where('comun',$bus)
@@ -291,9 +307,19 @@ class InmController extends Controller
         $inmueble['sup_const']=$request->supconst;
         $inmueble['ant_const']= $request->antconst;
         $inmueble['gestion']= $request->gestion;
-        DB::table('pm01inmu')
+        
+        $resultado=DB::table('pm01inmu')
         ->where('cantidad',$con)
         ->update($inmueble);
+
+        if($resultado){
+            $log=new Log();
+            $log->actividad='Modifica Inm '.$con;
+            $log->iduser=Auth::user()->id;
+            $log->nombre=Auth::user()->name;
+            $log->save();
+        }
+        
     
         }
     }
