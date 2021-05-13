@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cont;
 use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ContController extends Controller
@@ -37,6 +38,12 @@ class ContController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->complemento==null||$request->complemento=='')
+            $cedula=$request->comun;
+        else 
+            $cedula=$request->comun.'-'.strtoupper($request->complemento);
+        
+        if( Cont::where('comun',$cedula)->count() == 0 ){
         $d=new Cont();
         $d->act_inmu="";
         $d->act_vehi="";
@@ -72,13 +79,23 @@ class ContController extends Controller
         $d->descrip=strtoupper($request->descrip);
         $d->nacimient=$request->nacimient;
         $d->fecha_reg=now();
-        $d->save();
+        $resultado=$d->save();
 
-        //$log=new Log();
-        //$log->actividad='Registro Contrib '.$d->comun;
-        //$log->iduser=Auth::user()->id;
-        //$log->nombre=Auth::user()->name;
-        //$log->save();
+        //if($resultado){
+        //    $log=new Log();
+        //    $log->actividad='Registro Contrib '.$d->comun;
+        //    $log->iduser=Auth::user()->id;
+        //    $log->nombre=Auth::user()->name;
+        //    $log->save();
+        //}
+        }
+        else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'CONTRIBUYENTE REGISTRADO',
+            ], 422);
+        
+        };
 
     }
 
@@ -142,10 +159,18 @@ class ContController extends Controller
         'descrip'=>strtoupper($request->descrip),
         'nacimient'=>$request->nacimient);
 
-        DB::table('pm01cont')
+        $resultado=DB::table('pm01cont')
         ->where('comun',$comun)
         ->where('tipodocum',$tipodocum)
         ->update($cont);
+
+        //if($resultado){
+        //    $log=new Log();
+        //    $log->actividad='Modifica Contrib '.$request->comun;
+        //    $log->iduser=Auth::user()->id;
+        //    $log->nombre=Auth::user()->name;
+        //    $log->save();
+        //}
     }
 
     /**
@@ -182,4 +207,5 @@ class ContController extends Controller
     public function codzona(){
         return DB::table('pmzona')->select('zona','descrip')->get(); 
     }
+
 }
