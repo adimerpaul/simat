@@ -157,19 +157,19 @@
         <div class='row'>
             <div class="col-md-2">
                 <label for="distrito" class="form-label">Distrito</label>
-                <input type="text" class="form-control" id="distrito" required v-model="dato.distrito" value=''>
+                <input type="text" class="form-control" id="distrito" required v-model="dato.distrito" value='' maxlength="2">
             </div>
             <div class="col-md-2">
                 <label for="manzano" class="form-label">manzano</label>
-                <input type="text" class="form-control" id="manzano"  v-model="dato.manzano" value=''>
+                <input type="text" class="form-control" id="manzano"  v-model="dato.manzano" value='' maxlength="2">
             </div>
             <div class="col-md-2">
                 <label for="lote" class="form-label">lote</label>
-                <input type="text" class="form-control" id="lote"  v-model="dato.lote" value=''>
+                <input type="text" class="form-control" id="lote"  v-model="dato.lote" value='' maxlength="2">
             </div>
             <div class="col-md-2">
                 <label for="sublote" class="form-label">sublote</label>
-                <input type="text" class="form-control" id="sublote"  v-model="dato.sublote" value=''>
+                <input type="text" class="form-control" id="sublote"  v-model="dato.sublote" value='' maxlength="2">
             </div>
             <div class="col-md-4">
                 <label for="material" class="form-label">Material calle</label>
@@ -360,19 +360,19 @@
                 <div class='row'>
                     <div class="col-md-2">
                         <label for="moddistrito" class="form-label">Distrito</label>
-                        <input type="text" class="form-control" id="moddistrito" required v-model="modif.distrito" value='' style="text-transform:uppercase;">
+                        <input type="text" class="form-control" id="moddistrito" required v-model="modif.distrito" value='' style="text-transform:uppercase;" maxlength="2">
                     </div>
                     <div class="col-md-2">
                         <label for="modmanzano" class="form-label">manzano</label>
-                        <input type="text" class="form-control" id="modmanzano"  v-model="modif.manzano" value=''>
+                        <input type="text" class="form-control" id="modmanzano"  v-model="modif.manzano" value='' maxlength="2">
                     </div>
                     <div class="col-md-2">
                         <label for="modlote" class="form-label">lote</label>
-                        <input type="text" class="form-control" id="modlote"  v-model="modif.lote" value=''>
+                        <input type="text" class="form-control" id="modlote"  v-model="modif.lote" value='' maxlength="2">
                     </div>
                     <div class="col-md-2">
                         <label for="modsublote" class="form-label">sublote</label>
-                        <input type="text" class="form-control" id="modsublote"  v-model="modif.sublote" value=''>
+                        <input type="text" class="form-control" id="modsublote"  v-model="modif.sublote" value='' maxlength="2">
                     </div>
                     <div class="col-md-4">
                         <label for="modmaterial" class="form-label">Material calle</label>

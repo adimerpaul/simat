@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/registro', function () {
+    if(Auth::user()->id==9999999)
+        return view('auth/register');
+    else
+     return view('home');
+})->middleware('auth');
+
 Route::get('/contribuyente', function () {
     return view('home');
 })->middleware('auth');

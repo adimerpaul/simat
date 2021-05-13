@@ -26,7 +26,7 @@
                                 </div> - 
                                 <div class="form-group col-md-2">
                                     <label for="complemento">Complemento</label>
-                                    <input type="text" class="form-control" id="complemento" placeholder="XX" v-model="dato.complemento" style="text-transform:uppercase;" min="2" max="2">
+                                    <input type="text" class="form-control" id="complemento" placeholder="XX" v-model="dato.complemento" style="text-transform:uppercase;" min="2" max="2" maxlength="2">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="expedido">Expedido</label>

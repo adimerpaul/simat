@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-2">
             <label for="complemento" class="form-label">Complemento</label>
-            <input type="text" class="form-control" id="complemento"  v-model='dato2.complemento' min="2" max="2">
+            <input type="text" class="form-control" id="complemento"  v-model='dato2.complemento' min="2" max="2" maxlength="2">
 
         </div>
         <br>

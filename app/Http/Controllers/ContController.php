@@ -72,6 +72,13 @@ class ContController extends Controller
         $d->nacimient=$request->nacimient;
         $d->fecha_reg=now();
         $d->save();
+
+        $log=new Log();
+        $log->actividad='Registro Contrib '.$d->comun;
+        $log->iduser=Auth::user()->id;
+        $log->nombre=Auth::user()->name;
+        $log->save();
+
     }
 
     /**
