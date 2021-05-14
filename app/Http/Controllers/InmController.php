@@ -238,7 +238,6 @@ class InmController extends Controller
 
         if($cont>0){
         $inmueble=array(
-            'comun'=>$bus,
         'flag_inmu'=>$request->flaginmu,
         'cod_barrio'=>$request->codbarrio,
         'tipocalle'=>$request->tipocalle,
