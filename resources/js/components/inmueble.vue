@@ -221,7 +221,7 @@
             </div>
             <div class="col-md-4">
                 <label for="gestion" class="form-label">Gestion Cobro</label>
-                <input type="number" class="form-control" id="gestion"  min=0 value=0 v-model="dato.gestion">
+                <input type="number" class="form-control" id="gestion"  min=0 value=0 required v-model="dato.gestion">
             </div>
         </div>
         <div class="row" id='areaconst'>
@@ -424,7 +424,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="modgestion" class="form-label">Gestion Cobro</label>
-                        <input type="number" class="form-control" id="modgestion"  min=0 value=0 v-model="modif.gestion">
+                        <input type="number" class="form-control" id="modgestion"  min=0 value=0 required v-model="modif.gestion">
                     </div>
                 </div>
                 <div class="row" id='areaconst2'>
