@@ -48,12 +48,13 @@ class InmController extends Controller
         else
             $com=$request->comun.'-'.$request->complemento;
         if((DB::table('pm01inmu')->where('comun',$com)->count())>0)
-        {$num=Inm::where('comun',$com)->count();
+        {
+            $num=trim(Inm::where('comun',$com)->max('cantidad'));
         
-            $num2=$num+ 1;
-            //echo $num1; 
+            $num1=strlen($num) - 1;
+            $num2=intval(substr($num,$num1) + 1);
+            //echo $num2; 
             //exit;
-        //$num2=intval(substr($num,$num1) + 1);
         }
         else $num2=1;
         $inmueble=new Inm();
@@ -142,7 +143,7 @@ class InmController extends Controller
         if($request->antconst== null)
         $inmueble->ant_const=0;
         else
-        $inmueble->ant_const= $request->antconst;
+        $inmueble->ant_const= date("Y",strtotime(date("Y")."- ".$request->antconst." year"));
 
         if($request->gestion== null)
         $inmueble->gestion=0;
@@ -156,7 +157,7 @@ class InmController extends Controller
         $inmueble->revalor='0';
         $inmueble->cs_manz='';
         $inmueble->cs_lote='';
-        $inmueble->cod_caja='SIMAT';
+        $inmueble->cod_caja=Auth::user()->id;
         $inmueble->bandera='1';
         $inmueble->valor_ha=0.00;
         $inmueble->fecha_reg=now();
@@ -184,11 +185,11 @@ class InmController extends Controller
             ->where('comun',$com)
             ->update(['act_inmu'=>'A']);
 
-            //$log=new Log();
-           // $log->actividad='Registro Inm '.$inmueble->cantidad;
-           // $log->iduser=Auth::user()->id;
-           // $log->nombre=Auth::user()->name;
-           // $log->save();
+            $log=new Log();
+            $log->actividad='Registro Inm '.$inmueble->cantidad;
+            $log->iduser=Auth::user()->id;
+            $log->nombre=Auth::user()->name;
+            $log->save();
         }
 
     }
@@ -206,7 +207,7 @@ class InmController extends Controller
             $bus=$comun;  
         else
             $bus=$comun.'-'.$complemento;
-        return Inm::where('comun',$bus)->get(); 
+        return Inm::where('comun',$bus)->orderBy('cantidad','asc')->get(); 
     }
 
     /**
@@ -316,13 +317,13 @@ class InmController extends Controller
         ->where('cantidad',$con)
         ->update($inmueble);
 
-        //if($resultado){
-            //$log=new Log();
-            //$log->actividad='Modifica Inm '.$con;
-            //$log->iduser=Auth::user()->id;
-            //$log->nombre=Auth::user()->name;
-            //$log->save();
-       // }
+        if($resultado){
+            $log=new Log();
+            $log->actividad='Modifica Inm '.$con;
+            $log->iduser=Auth::user()->id;
+            $log->nombre=Auth::user()->name;
+            $log->save();
+        }
         
     
         }

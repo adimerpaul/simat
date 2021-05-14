@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                         </router-link>
-                        @if (Auth::user()->id==1)
+                        @if (Auth::user()->id==99999)
                         <router-link
                             to="/registro"
                             v-slot="{ href, route, navigate, isActive, isExactActive }"

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

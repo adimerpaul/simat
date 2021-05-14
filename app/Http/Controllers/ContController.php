@@ -81,13 +81,13 @@ class ContController extends Controller
         $d->fecha_reg=now();
         $resultado=$d->save();
 
-        //if($resultado){
-        //    $log=new Log();
-        //    $log->actividad='Registro Contrib '.$d->comun;
-        //    $log->iduser=Auth::user()->id;
-        //    $log->nombre=Auth::user()->name;
-        //    $log->save();
-        //}
+        if($resultado){
+            $log=new Log();
+            $log->actividad='Registro Contrib '.$d->comun;
+            $log->iduser=Auth::user()->id;
+            $log->nombre=Auth::user()->name;
+            $log->save();
+        }
         }
         else {
             return response()->json([
@@ -164,13 +164,13 @@ class ContController extends Controller
         ->where('tipodocum',$tipodocum)
         ->update($cont);
 
-        //if($resultado){
-        //    $log=new Log();
-        //    $log->actividad='Modifica Contrib '.$request->comun;
-        //    $log->iduser=Auth::user()->id;
-        //    $log->nombre=Auth::user()->name;
-        //    $log->save();
-        //}
+        if($resultado){
+            $log=new Log();
+            $log->actividad='Modifica Contrib '.$request->comun;
+            $log->iduser=Auth::user()->id;
+            $log->nombre=Auth::user()->name;
+            $log->save();
+        }
     }
 
     /**

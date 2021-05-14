@@ -593,23 +593,48 @@ export default {
                 console.log($('#tipoinm').val());
                 if(this.dato.var1==3)
                     $('#areadept').css("display","");
+
                 else
-                    $('#areadept').css("display","none");
+                    {$('#areadept').css("display","none");
+                        this.dato.bloque='';
+                        this.dato.piso='';
+                        this.dato.numdpto='';
+                    }
                 if(this.dato.var1!=2)
-                    $('#areaconst').css("display","");
+                    {$('#areaconst').css("display","");
+       
+                    }
                 else
-                    $('#areaconst').css("display","none");                    
+                    {$('#areaconst').css("display","none");                  
+                    this.dato.bloque='';
+                    this.dato.piso='';
+                    this.dato.numdpto='';
+                    this.dato.vivunifa='';
+                    this.dato.supconst=0;
+                    this.dato.antconst='';
+                    }
             },
 
             cambio2(){
                 if(this.modif.var1==3)
-                    $('#areadept2').css("display","");
+                    {$('#areadept2').css("display","");
+                        this.modif.bloque='';
+                        this.modif.piso='';
+                        this.modif.numdpto='';
+                    }
                 else
                     $('#areadept2').css("display","none");
                 if(this.modif.var1!=2)
                     $('#areaconst2').css("display","");
                 else
-                    $('#areaconst2').css("display","none");                    
+                    {$('#areaconst2').css("display","none");                    
+                        this.modif.bloque='';
+                        this.modif.piso='';
+                        this.modif.numdpto='';
+                        this.modif.vivunifa='';
+                        this.modif.supconst=0;
+                        this.modif.antconst='';
+                    }
             },
 
 
