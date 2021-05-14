@@ -500,7 +500,7 @@ export default {
                 console.log(this.dato);
                 axios.post('/registrar',this.dato).then(res=>{
                     console.log(res);
-                    //return false;
+                    //Preturn false;
                   this.$fire({
                         title: "Guardado",
                         text: "Correctamente",

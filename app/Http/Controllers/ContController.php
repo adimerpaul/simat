@@ -85,7 +85,7 @@ class ContController extends Controller
             $log=new Log();
             $log->actividad='Registro Contrib '.$d->comun;
             $log->iduser=Auth::user()->id;
-            $log->nombre=Auth::user()->name;
+            $log->nombre=Auth::user()->username;
             $log->save();
         }
         }
@@ -168,7 +168,7 @@ class ContController extends Controller
             $log=new Log();
             $log->actividad='Modifica Contrib '.$request->comun;
             $log->iduser=Auth::user()->id;
-            $log->nombre=Auth::user()->name;
+            $log->nombre=Auth::user()->username;
             $log->save();
         }
     }

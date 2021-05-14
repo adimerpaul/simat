@@ -188,7 +188,7 @@ class InmController extends Controller
             $log=new Log();
             $log->actividad='Registro Inm '.$inmueble->cantidad;
             $log->iduser=Auth::user()->id;
-            $log->nombre=Auth::user()->name;
+            $log->nombre=Auth::user()->username;
             $log->save();
         }
 
@@ -321,7 +321,7 @@ class InmController extends Controller
             $log=new Log();
             $log->actividad='Modifica Inm '.$con;
             $log->iduser=Auth::user()->id;
-            $log->nombre=Auth::user()->name;
+            $log->nombre=Auth::user()->username;
             $log->save();
         }
         
