@@ -57,7 +57,7 @@ class ContController extends Controller
         $d->casilla="";
         $d->benemerito="";
         $d->car_benem="";
-        $d->bandera="";
+        $d->bandera="1";
         $d->cod_caja=Auth::user()->username;
         $d->hora_reg="";
 
