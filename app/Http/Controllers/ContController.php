@@ -58,7 +58,7 @@ class ContController extends Controller
         $d->benemerito="";
         $d->car_benem="";
         $d->bandera="";
-        $d->cod_caja="";
+        $d->cod_caja=Auth::user()->username;
         $d->hora_reg="";
 
         if($request->complemento==null||$request->complemento=='')
@@ -157,6 +157,7 @@ class ContController extends Controller
         'numcasa'=>strtoupper($request->numcasa),
         'telefono'=>$request->telefono,
         'descrip'=>strtoupper($request->descrip),
+        'cod_caja'=>Auth::user()->username,
         'nacimient'=>$request->nacimient);
 
         $resultado=DB::table('pm01cont')

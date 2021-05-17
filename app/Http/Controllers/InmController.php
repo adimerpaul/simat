@@ -157,7 +157,7 @@ class InmController extends Controller
         $inmueble->revalor='0';
         $inmueble->cs_manz='';
         $inmueble->cs_lote='';
-        $inmueble->cod_caja=Auth::user()->id;
+        $inmueble->cod_caja=Auth::user()->username;
         $inmueble->bandera='1';
         $inmueble->valor_ha=0.00;
         $inmueble->fecha_reg=now();
@@ -311,6 +311,7 @@ class InmController extends Controller
         $inmueble['sup_const']=$request->supconst;
         $inmueble['ant_const']= $request->antconst;
         $inmueble['gestion']= $request->gestion;
+        $inmueble['cod_caja']=Auth::user()->username;
         
         $resultado=DB::table('pm01inmu')
         ->where('cantidad',$con)
