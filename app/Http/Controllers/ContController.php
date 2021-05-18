@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cont;
 use App\Models\ContJur;
+use App\Models\Contj;
 use App\Models\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -23,8 +24,8 @@ class ContController extends Controller
         else
             $cedula=$request->comun.'-'.strtoupper($request->complemento);
 
-        if( Cont::where('comun',$cedula)->count() == 0 ){
-            $d=new Contj;
+        if( ContJur::where('comun',$cedula)->count() == 0 ){
+            $d=new ContJur;
             $d->act_inmu="";
             $d->act_vehi="";
             $d->act_acec="";

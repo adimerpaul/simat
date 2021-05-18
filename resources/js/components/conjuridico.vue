@@ -103,10 +103,7 @@
                                     <label for="descrip">Direccion</label>
                                     <input type="text" class="form-control" id="descrip" placeholder="Domicilio" v-model="dato.descrip" style="text-transform:uppercase;">
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="nacimient">Fec Nacimiento</label>
-                                    <input type="date" class="form-control" id="nacimient" required placeholder="nacimient" v-model="dato.nacimient">
-                                </div>
+
                             </div>
                             <button type="submit" class="btn btn-success btn-block"  ><i class="fa fa-user-plus"></i>Registrar</button>
                         </form>
@@ -137,7 +134,7 @@
         },
         methods:{
             guardar(){
-                axios.post('/guardar',this.dato).then(res=>{
+                axios.post('/guardarj',this.dato).then(res=>{
                     // console.log('Guardado correctamente');
                     this.$fire({
                         title: "Guardado",

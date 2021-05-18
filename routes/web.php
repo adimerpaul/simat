@@ -47,6 +47,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/guardar', [App\Http\Controllers\ContController::class, 'store'])->middleware('auth');
+Route::post('/guardarj', [App\Http\Controllers\ContController::class, 'conjuridico'])->middleware('auth');
 Route::post('/registrar', [App\Http\Controllers\InmController::class, 'store'])->middleware('auth');
 Route::post('/conjuridico', [App\Http\Controllers\ContController::class, 'conjuridico'])->middleware('auth');
 Route::put('/modificar/{cantidad}', [App\Http\Controllers\InmController::class, 'update'])->middleware('auth');
