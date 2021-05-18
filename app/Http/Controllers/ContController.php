@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cont;
 use App\Models\ContJur;
 use App\Models\Log;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,70 @@ class ContController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function conjuridico(Request $request){
+        if($request->complemento==null||$request->complemento=='')
+            $cedula=$request->comun;
+        else
+            $cedula=$request->comun.'-'.strtoupper($request->complemento);
+
+        if( Cont::where('comun',$cedula)->count() == 0 ){
+            $d=new Contj;
+            $d->act_inmu="";
+            $d->act_vehi="";
+            $d->act_acec="";
+//            $d->run="";
+            $d->rl_ruc="";
+            $d->medidor="";
+            $d->bloque="";
+            $d->piso="";
+            $d->numdpto="";
+            $d->casilla="";
+//            $d->benemerito="";
+//            $d->car_benem="";
+            $d->bandera="1";
+            $d->cod_caja=Auth::user()->username;
+            $d->hora_reg=date('H:i:s');
+            $d->razon_soc=strtoupper($request->razon_soc);
+            if($request->complemento==null||$request->complemento==''){
+                $d->comun=$request->comun;
+                $d->rl_ci=$request->comun;
+            }
+            else{
+                $d->comun=$request->comun.'-'.strtoupper($request->complemento);
+                $d->rl_ci=$request->comun.'-'.strtoupper($request->complemento);
+            }
+            $d->tipodocum=$request->tipodocum;
+            $d->rl_expedi=$request->expedido;
+            $d->paterno=strtoupper($request->paterno);
+            $d->materno=strtoupper($request->materno);
+            $d->nombre=strtoupper($request->nombre);
+            $d->cod_ham=$request->cod_ham;
+            $d->cod_barrio=$request->cod_barrio;
+            $d->tipocalle=$request->tipocalle;
+            $d->nombrecall=strtoupper($request->nombrecall);
+            $d->numcasa=strtoupper($request->numcasa);
+            $d->telefono=$request->telefono;
+            $d->descrip=strtoupper($request->descrip);
+//            $d->nacimient=$request->nacimient;
+            $d->fecha_reg=now();
+            $resultado=$d->save();
+
+            if($resultado){
+                $log=new Log();
+                $log->actividad='Registro Contrib '.$d->comun;
+                $log->iduser=Auth::user()->id;
+                $log->nombre=Auth::user()->username;
+                $log->save();
+            }
+        }
+        else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'CONTRIBUYENTE REGISTRADO',
+            ], 422);
+
+        };
+    }
     public function index()
     {
         //
@@ -41,9 +106,9 @@ class ContController extends Controller
     {
         if($request->complemento==null||$request->complemento=='')
             $cedula=$request->comun;
-        else 
+        else
             $cedula=$request->comun.'-'.strtoupper($request->complemento);
-        
+
         if( Cont::where('comun',$cedula)->count() == 0 ){
         $d=new Cont();
         $d->act_inmu="";
@@ -64,7 +129,7 @@ class ContController extends Controller
 
         if($request->complemento==null||$request->complemento=='')
         $d->comun=$request->comun;
-        else 
+        else
         $d->comun=$request->comun.'-'.strtoupper($request->complemento);
         $d->tipodocum=$request->tipodocum;
         $d->expedido=$request->expedido;
@@ -95,7 +160,7 @@ class ContController extends Controller
                 'status' => 'error',
                 'message' => 'CONTRIBUYENTE REGISTRADO',
             ], 422);
-        
+
         };
 
     }
@@ -114,7 +179,7 @@ class ContController extends Controller
             $bus=$comun;
         else
             $bus=$comun.'-'.$complemento;
-            return Cont::where('comun',$bus)->where('tipodocum',$tipodocum)->get(); 
+            return Cont::where('comun',$bus)->where('tipodocum',$tipodocum)->get();
 
     }
 
@@ -142,10 +207,10 @@ class ContController extends Controller
         //
         $comun=$request->comun;
         $tipodocum=$request->tipodocum;
-        //$cont=Cont::where('comun',$comun)->where('tipodocum',$tipodocum)->get();  
+        //$cont=Cont::where('comun',$comun)->where('tipodocum',$tipodocum)->get();
 
         $cont=array(
-       
+
         'tipodocum'=>$request->tipodocum,
         'expedido'=>$request->expedido,
         'paterno'=>strtoupper($request->paterno),
@@ -191,15 +256,15 @@ class ContController extends Controller
         $complemento=$complemento;//
         if($complemento==null || $complemento=='')
             $bus=$comun;
-        else   
+        else
             $bus=$comun.'-'.$complemento;
         if($tipo=='N')
-           return Cont::where('comun',$bus)->get(); 
+           return Cont::where('comun',$bus)->get();
         if($tipo=='J')
-           return ContJur::where('comun',$bus)->get(); 
+           return ContJur::where('comun',$bus)->get();
     }
 
-    
+
 
     public function codbarrio(){
         return DB::table('pmbarrio')->select('barrio','codigo')->get();
@@ -210,7 +275,7 @@ class ContController extends Controller
     }
 
     public function codzona(){
-        return DB::table('pmzona')->select('zona','descrip')->get(); 
+        return DB::table('pmzona')->select('zona','descrip')->get();
     }
 
 }

@@ -46,7 +46,10 @@
                                 </div>
                             </div>
                             <div class="form-row">
-
+                                <div class="form-group col-md-3">
+                                    <label for="razon_soc">Razon social</label>
+                                    <input type="text" class="form-control" id="razon_soc" placeholder="Razon social" v-model="dato.razon_soc" style="text-transform:uppercase;">
+                                </div>
                                 <div class="form-group col-md-3">
                                     <label for="paterno">Paterno</label>
                                     <input type="text" class="form-control" id="paterno" placeholder="Paterno" v-model="dato.paterno" style="text-transform:uppercase;">
