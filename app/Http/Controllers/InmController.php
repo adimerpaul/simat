@@ -181,10 +181,16 @@ class InmController extends Controller
         //exit;
         
         if($resultado){
+            if($request->flaginmu=='N')
             $cont=DB::table('pm01cont')
             ->where('comun',$com)
             ->update(['act_inmu'=>'A']);
 
+            if($request->flaginmu=='J')
+            $cont=DB::table('pmjucont')
+            ->where('comun',$com)
+            ->update(['act_inmu'=>'A']);
+            
             $log=new Log();
             $log->actividad='Registro Inm '.$inmueble->cantidad;
             $log->iduser=Auth::user()->id;
@@ -201,7 +207,7 @@ class InmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
     public function show($comun,$complemento=null)
     {
         if($complemento == null||$complemento=='')

@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <form @submit.prevent="guardar">
                             <div class="form-row">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="tipodocumento">Tipo documento</label>
                                     <!--                                    <input type="text" class="form-control" id="tipodocumento" placeholder="Tipo Documento">-->
                                     <select name="tipodocumento" id="tipodocumento" class="form-control" required v-model="dato.tipodocum">
@@ -20,16 +20,25 @@
                                         <option value="4">CI EXTR</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="ci">Carnet de identidad</label>
                                     <input type="text" class="form-control" id="ci" placeholder="Carnet de identidad" required v-model="dato.comun" style="text-transform:uppercase;">
                                 </div> -
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="complemento">Complemento</label>
                                     <input type="text" class="form-control" id="complemento" placeholder="XX" v-model="dato.complemento" style="text-transform:uppercase;" min="2" max="2" maxlength="2">
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="expedido">Expedido</label>
+                                <div class="form-row"> 
+                                <div class="form-group col-md-3">
+                                    <label for="rl_ci">Ci Rep Legal</label>
+                                    <input type="text" class="form-control" id="rl_ci" placeholder="ci rep legal" required v-model="dato.rl_ci" style="text-transform:uppercase;">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="rl_ruc">RUC</label>
+                                    <input type="text" class="form-control" id="rl_ruc" placeholder="N RUC" required v-model="dato.rl_ruc" style="text-transform:uppercase;">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="expedido">Expedido Legal</label>
                                     <!--                                    <input type="text" class="form-control" id="expedido" placeholder="Tipo Documento">-->
                                     <select name="expedido" id="expedido" class="form-control" required v-model="dato.expedido">
                                         <option value="OR" selected>ORURO</option>
@@ -44,6 +53,7 @@
                                         <option value="EX">CI EXTR</option>
                                     </select>
                                 </div>
+                            </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">

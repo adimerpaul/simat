@@ -30,13 +30,14 @@ class ContController extends Controller
             $d->act_vehi="";
             $d->act_acec="";
 //            $d->run="";
-            $d->rl_ruc="";
+            $d->rl_ruc=$request->rl_ruc;
             $d->medidor="";
             $d->bloque="";
             $d->piso="";
             $d->numdpto="";
             $d->casilla="";
-//            $d->benemerito="";
+                $d->rl_ci=$request->rl_ci;
+                //            $d->benemerito="";
 //            $d->car_benem="";
             $d->bandera="1";
             $d->cod_caja=Auth::user()->username;
@@ -44,11 +45,9 @@ class ContController extends Controller
             $d->razon_soc=strtoupper($request->razon_soc);
             if($request->complemento==null||$request->complemento==''){
                 $d->comun=$request->comun;
-                $d->rl_ci=$request->comun;
             }
             else{
                 $d->comun=$request->comun.'-'.strtoupper($request->complemento);
-                $d->rl_ci=$request->comun.'-'.strtoupper($request->complemento);
             }
             $d->tipodocum=$request->tipodocum;
             $d->rl_expedi=$request->expedido;
