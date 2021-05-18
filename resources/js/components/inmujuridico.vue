@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <h1>INMUEBLES DEL CONTRIBUYENTE</h1>
+      <h1>INMUEBLES DEL CONTRIBUYENTE JURIDICO</h1>
       <form action=""  @submit.prevent="buscar">
             <div class="form-group row  ">
                 <label for="comun" class="form-label">CI (- comp)</label>
@@ -73,9 +73,7 @@
                 <div class="col-md-4">
                     <label for="tipocont" class="form-label">TIPO</label>
                     <select class="form-control" id='tipocont'  v-model='dato.flaginmu' required> 
-                        <option value="N" selected>NATURAL</option>
-                        <option value="J">JURIDICA</option>
-                        <option value="I">INDIVISA</option>
+                        <option value="J" selected> JURIDICA</option>
                     </select>
                     <input type="hidden" name="comun0" id="comun0" v-model='dato.comun' >
                     <input type="hidden" name="complemento0" id="complemento0" v-model='dato.complemento'>
@@ -566,7 +564,7 @@ export default {
             },
 
             buscar(){
-                axios.get('/buscar/'+this.dato2.comun+'/'+this.dato2.complemento).then(res=>{
+                axios.get('/buscar/J/'+this.dato2.comun+'/'+this.dato2.complemento).then(res=>{
                     console.log(this.dato2);
                     console.log(res.data);
                     if(res.data.length!=0){

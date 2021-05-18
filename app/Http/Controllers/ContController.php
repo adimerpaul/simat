@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cont;
+use App\Models\ContJur;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -185,14 +186,17 @@ class ContController extends Controller
         //
     }
 
-    public function buscarcont($comun,$complemento=null){
+    public function buscarcont($tipo,$comun,$complemento=null){
         $comun=$comun;
         $complemento=$complemento;//
         if($complemento==null || $complemento=='')
             $bus=$comun;
         else   
             $bus=$comun.'-'.$complemento;
+        if($tipo=='N')
            return Cont::where('comun',$bus)->get(); 
+        if($tipo=='J')
+           return ContJur::where('comun',$bus)->get(); 
     }
 
     

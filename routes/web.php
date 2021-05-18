@@ -55,6 +55,6 @@ Route::get('/datoinm/{cantidad}', [App\Http\Controllers\InmController::class, 'd
 Route::get('/cbarrio', [App\Http\Controllers\ContController::class, 'codbarrio'])->name('home');
 Route::get('/cham', [App\Http\Controllers\ContController::class, 'codham'])->name('home');
 Route::get('/zona', [App\Http\Controllers\ContController::class, 'codzona'])->name('home');
-Route::get('/buscar/{comun}/{complemento?}', [App\Http\Controllers\ContController::class, 'buscarcont'])->name('home');
+Route::get('/buscar/{tipo}/{comun}/{complemento?}', [App\Http\Controllers\ContController::class, 'buscarcont'])->name('home');
 Route::get('/validar/{comun}/{complemento?}', [App\Http\Controllers\InmController::class, 'validar'])->name('home');
 Route::post('/modifica/{comun}', [App\Http\Controllers\ContController::class, 'update'])->middleware('auth');
