@@ -1,3 +1,5 @@
+import inmujuridico from "./components/inmujuridico";
+
 require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -11,11 +13,14 @@ import contribuyente from './components/contribuyente';
 import modcontrib from './components/modcontrib';
 import inmueble from './components/inmueble';
 import home from './components/ExampleComponent';
+import conjuridico from "./components/conjuridico";
 const routes = [
     { path: '/home', component: home },
     { path: '/contribuyente', component: contribuyente },
     { path: '/inmueble', component: inmueble },
     { path: '/buscar', component: modcontrib },
+    { path: '/inmujuridico', component: inmujuridico },
+    { path: '/conjuridico', component: conjuridico },
 ]
 
 const router = new VueRouter({

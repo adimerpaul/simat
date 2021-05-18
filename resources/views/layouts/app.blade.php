@@ -13,7 +13,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -44,16 +44,35 @@
                             </li>
                         </router-link>
                         @if(Auth::user())
-                        <router-link
-                            to="/contribuyente"
-                            v-slot="{ href, route, navigate, isActive, isExactActive }"
-                        >
-                            <li class="nav-item">
-                                <a class="nav-link" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">
-                                    <i class="fa fa-user"></i> Contribuyente
+{{--                        <router-link--}}
+{{--                            to="/contribuyente"--}}
+{{--                            v-slot="{ href, route, navigate, isActive, isExactActive }"--}}
+{{--                        >--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">--}}
+{{--                                    <i class="fa fa-user"></i> Contribuyente--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </router-link>--}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user"></i> Contibuyente
                                 </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <router-link
+                                        to="/contribuyente"
+                                        v-slot="{ href, route, navigate, isActive, isExactActive }"
+                                    >
+                                        <a class="dropdown-item" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">Natural</a>
+                                    </router-link>
+                                    <router-link
+                                        to="/conjuridico"
+                                        v-slot="{ href, route, navigate, isActive, isExactActive }"
+                                    >
+                                        <a class="dropdown-item" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">Juridico</a>
+                                    </router-link>
+                                </div>
                             </li>
-                        </router-link>
                         <router-link
                             to="/buscar"
                             v-slot="{ href, route, navigate, isActive, isExactActive }"
@@ -65,17 +84,36 @@
                                 </a>
                             </li>
                         </router-link>
-                        <router-link
-                            to="/inmueble"
-                            v-slot="{ href, route, navigate, isActive, isExactActive }"
-                        >
-                            <li class="nav-item">
-                                <a class="nav-link" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">
-                                    <i class="fa fa-hand-holding-medical"></i> inmuebles
+{{--                        <router-link--}}
+{{--                            to="/inmueble"--}}
+{{--                            v-slot="{ href, route, navigate, isActive, isExactActive }"--}}
+{{--                        >--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">--}}
+{{--                                    <i class="fa fa-hand-holding-medical"></i> inmuebles--}}
 
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </router-link>--}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-hand-holding-medical"></i> inmuebles
                                 </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <router-link
+                                        to="/inmueble"
+                                        v-slot="{ href, route, navigate, isActive, isExactActive }"
+                                    >
+                                        <a class="dropdown-item" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">Natural</a>
+                                    </router-link>
+                                    <router-link
+                                        to="/inmujuridico"
+                                        v-slot="{ href, route, navigate, isActive, isExactActive }"
+                                    >
+                                        <a class="dropdown-item" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">Juridico</a>
+                                    </router-link>
+                                </div>
                             </li>
-                        </router-link>
                         @if (Auth::user()->id==99999)
                         <router-link
                             to="/registro"
