@@ -223,6 +223,7 @@ class ContController extends Controller
         'numcasa'=>strtoupper($request->numcasa),
         'telefono'=>$request->telefono,
         'descrip'=>strtoupper($request->descrip),
+        'bandera'=>$request->bandera,
         'cod_caja'=>Auth::user()->username,
         'nacimient'=>$request->nacimient);
 

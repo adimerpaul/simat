@@ -52,6 +52,7 @@
                                     <label for="complemento">complemento</label>
                                     <input type="text" class="form-control" id="complemento"  v-model="dato.complemento" readonly>
                                 </div>
+
                                 <div class="form-group col-md-3">
                                     <label for="expedido">Expedido</label>
                                     <!--                                    <input type="text" class="form-control" id="expedido" placeholder="Tipo Documento">-->
@@ -68,6 +69,11 @@
                                         <option value="EX">EXTERNO</option>
                                     </select>
                                 </div>
+                                <div class="form-group col-md-2">
+                                    <label for="bandera">Bandera</label>
+                                    <input type="text" class="form-control" id="bandera"  v-model="dato.bandera" required>
+                                </div>
+
                                 <div class="form-group col-md-3">
                                     <label for="paterno">Paterno</label>
                                     <input type="text" class="form-control" id="paterno" placeholder="Paterno" v-model="dato.paterno" style="text-transform:uppercase;">
