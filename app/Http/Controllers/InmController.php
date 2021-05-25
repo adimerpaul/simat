@@ -51,9 +51,9 @@ class InmController extends Controller
         {
             $num=trim(Inm::where('comun',$com)->max('cantidad'));
         
-            //$num1=strlen($num) - 1;
-            //$num2=intval(substr($num,$num1) + 1);
-            $num2= intval(substr($num,strlen($num)-2) + 1) ;
+            $num1=strlen($com);
+            $num2=intval(substr($num,$num1) + 1);
+            //$num2= intval(substr($num,strlen($num)-2) + 1) ;
             //echo $num2; 
             //exit;
         }
