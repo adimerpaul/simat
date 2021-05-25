@@ -495,10 +495,10 @@ export default {
             registrar(){
                 this.dato.comun=this.dato2.comun;
                 this.dato.complemento=this.dato2.complemento;
-                console.log(this.dato);
+                //console.log(this.dato);
                 axios.post('/registrar',this.dato).then(res=>{
-                    console.log(res);
-                    //Preturn false;
+                    console.log(res.data);
+                    //return false;
                   this.$fire({
                         title: "Guardado",
                         text: "Correctamente",
