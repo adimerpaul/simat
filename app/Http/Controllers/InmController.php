@@ -163,11 +163,10 @@ class InmController extends Controller
         $inmueble->valor_ha=0.00;
         $inmueble->fecha_reg=now();
         $inmueble->hora_reg=date('H:i:s');
-        if($request->var1==2)
+        if($request->var1=='2' || $request->var1==2)
             $inmueble->control='T';
         else    
             $inmueble->control='F';
-        $inmueble->control='F';
         $inmueble->n_informe='';
         $inmueble->controlex='F';
         $inmueble->docex='';
