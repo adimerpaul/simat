@@ -35,8 +35,10 @@
     <table class="table">
   <thead>
     <tr>
+      <th scope="col">Hab</th>
       <th scope="col">numero</th>
       <th scope="col">Cont</th>
+      <th scope="col">Gestion</th>
       <th scope="col">Ubicacion</th>
       <th scope="col">Superficie</th>
       <th scope="col">Opcion</th>
@@ -44,15 +46,19 @@
   </thead>
   <tbody>
         <tr v-for="(i,index) in inm " :key="index">
+            <td>{{i.bandera}}</td>
             <td>{{i.cantidad}}</td>
             <td>{{i.flag_inmu}}</td>
+            <td>{{i.gestion}}</td>
             <td>{{i.descrip}}</td>
             <td>{{i.superficie}}</td>
             <td>
                     <button type="button" class="btn btn-primary" @click="recuperar(i.cantidad)" data-toggle="modal" data-target="#modinmu" >  
                         Mod
                     </button>
-        </td>
+                    
+                    <button type="button" class="btn-danger" @click="band(i.CodAut,i.bandera)">band</button>
+            </td>
         </tr>
   </tbody>
 </table>
@@ -473,6 +479,8 @@ export default {
                 ham:[],
                 zona:[],
                 validar:false,
+                bandera:0,
+                msg:'',
 
             }
         },
@@ -635,6 +643,22 @@ export default {
                     }
             },
 
+            band(id,bandera){
+                var band=0;
+                if(bandera=='1')
+                {this.msg='Seguro Desactivar inmu'; band=2;}
+                else
+                {this.msg='Seguro de Activar inmu'; band=1;}
+                this.$confirm(this.msg,'Habilitar/Deshabilitar','warning').then(()=>
+                {
+                    axios.post('/bandera/'+id+'/'+band).then(res=>{
+                        this.listar();
+                        console.log(res.data);
+                        if(res.data=='0') this.$alert('No se puede Modificar');
+                    })
+                });
+                
+                },
 
             listar(){
 

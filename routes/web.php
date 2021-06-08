@@ -60,3 +60,4 @@ Route::get('/zona', [App\Http\Controllers\ContController::class, 'codzona'])->na
 Route::get('/buscar/{tipo}/{comun}/{complemento?}', [App\Http\Controllers\ContController::class, 'buscarcont'])->name('home');
 Route::get('/validar/{comun}/{complemento?}', [App\Http\Controllers\InmController::class, 'validar'])->name('home');
 Route::post('/modifica/{comun}', [App\Http\Controllers\ContController::class, 'update'])->middleware('auth');
+Route::post('/bandera/{codaut}/{band}', [App\Http\Controllers\InmController::class, 'modificar'])->middleware('auth');

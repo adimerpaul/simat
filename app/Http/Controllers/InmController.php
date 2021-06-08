@@ -235,6 +235,14 @@ class InmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function modificar($id,$band){
+        if(Auth::user()->username == 'AMQUISPAYA'){
+        Inm::where('CodAut',$id)->update(['bandera'=>$band]);//}
+        return '1';}
+        else return '0';
+    }
+
     public function update(Request $request, $cantidad1)
     {
         $con=strtoupper($request->cantidad);
