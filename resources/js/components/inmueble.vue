@@ -53,10 +53,9 @@
             <td>{{i.descrip}}</td>
             <td>{{i.superficie}}</td>
             <td>
-                    <button type="button" class="btn btn-primary" @click="recuperar(i.cantidad)" data-toggle="modal" data-target="#modinmu" >  
+                    <button type="button" class="btn btn-primary" @click="recuperar(i.CodAut)" data-toggle="modal" data-target="#modinmu" >  
                         Mod
                     </button>
-                    
                     <button type="button" class="btn-danger" @click="band(i.CodAut,i.bandera)">band</button>
             </td>
         </tr>
@@ -542,6 +541,7 @@ export default {
             modificar(){
                 console.log(this.modif);
                 console.log(this.validar);
+                
                 if(this.validar){
                 axios.put('/modificar/'+this.modif.cantidad,this.modif).then(res=>{
                   this.$fire({
@@ -673,7 +673,9 @@ export default {
 
                     console.log(res.data);
                     var info=res.data[0];
-                    this.modif={'comun':info['comun']
+                    this.modif={
+                        'CodAut':info['CodAut']
+                        ,'comun':info['comun']
                     ,'complemento':info['complemento']
                     ,'var1':info['var1'] 
                     ,'cantidad':info['cantidad']
@@ -718,6 +720,7 @@ export default {
                     this.modif.supconst=info['sup_const'];
                     this.modif.antconst=info['ant_const'];
                     this.modif.gestion=info['gestion'];
+                    this.modif.CodAut=info['CodAut'];
                     this.cambio2();
 
                 }) 

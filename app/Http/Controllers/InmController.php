@@ -246,6 +246,7 @@ class InmController extends Controller
     public function update(Request $request, $cantidad1)
     {
         $con=strtoupper($request->cantidad);
+        $codaut=$request->CodAut;
         $bus=$request->comun;
         $cont=DB::table('pm01cont')
         ->where('comun',$bus)
@@ -329,7 +330,7 @@ class InmController extends Controller
         $inmueble['cod_caja']=Auth::user()->username;
         
         $resultado=DB::table('pm01inmu')
-        ->where('cantidad',$con)
+        ->where('CodAut',$codaut)
         ->update($inmueble);
 
         if($resultado){
@@ -356,7 +357,7 @@ class InmController extends Controller
     }
 
     public function datoinm($cantidad){
-        return Inm::where('cantidad',$cantidad)->get(); 
+        return Inm::where('CodAut',$cantidad)->get(); 
 
     }
 
