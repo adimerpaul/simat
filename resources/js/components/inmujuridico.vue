@@ -540,8 +540,8 @@ export default {
             },
             modificar(){
                 console.log(this.modif);
-                console.log(this.validar);
-                if(this.validar){
+                //console.log(this.validarcont());
+                //if(this.validarcont()){
                 axios.put('/modificar/'+this.modif.cantidad,this.modif).then(res=>{
                   this.$fire({
                         title: "Guardado",
@@ -560,30 +560,16 @@ export default {
                         type: "error",
                         // timer: 3000
                     })
-                })}
-                else{
+                })//}
+                /*else{
                     this.$fire({
                         title: "Error",
                         text: "El Contribuyente no esta Registrado",
                         type: "error",})
-                }
+                }*/
                 
             },
-            band(id,bandera){
-                var band=0;
-                if(bandera=='1')
-                {this.msg='Seguro Desactivar inmu'; band=2;}
-                else
-                {this.msg='Seguro de Activar inmu'; band=1;}
-                this.$confirm(this.msg,'Habilitar/Deshabilitar','warning').then(()=>
-                {
-                    axios.post('/bandera/'+id+'/'+band).then(res=>{
-                        this.listar();
-                        if(res.data=='0') this.$alert('No se puede Modificar');
-                    })
-                });
-                
-                },
+
             buscar(){
                 axios.get('/buscar/J/'+this.dato2.comun+'/'+this.dato2.complemento).then(res=>{
                     console.log(this.dato2);
@@ -656,7 +642,21 @@ export default {
                     }
             },
 
-
+            band(id,bandera){
+                var band=0;
+                if(bandera=='1')
+                {this.msg='Seguro Desactivar inmu'; band=2;}
+                else
+                {this.msg='Seguro de Activar inmu'; band=1;}
+                this.$confirm(this.msg,'Habilitar/Deshabilitar','warning').then(()=>
+                {
+                    axios.post('/bandera/'+id+'/'+band).then(res=>{
+                        this.listar();
+                        if(res.data=='0') this.$alert('No se puede Modificar');
+                    })
+                });
+                
+                },
             listar(){
 
                 axios.get('/inm/'+this.dato2.comun+'/'+this.dato2.complemento).then(res=>{
@@ -718,6 +718,7 @@ export default {
                     this.modif.antconst=info['ant_const'];
                     this.modif.gestion=info['gestion'];
                     this.modif.CodAut=info['CodAut'];
+                    console.log(this.modif);
                     this.cambio2();
 
                 }) 

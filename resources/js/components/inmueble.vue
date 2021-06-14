@@ -540,9 +540,9 @@ export default {
             },
             modificar(){
                 console.log(this.modif);
-                console.log(this.validar);
+                //console.log(this.validarcont());
                 
-                if(this.validar){
+                //if(this.validarcont()){
                 axios.put('/modificar/'+this.modif.cantidad,this.modif).then(res=>{
                   this.$fire({
                         title: "Guardado",
@@ -561,14 +561,14 @@ export default {
                         type: "error",
                         // timer: 3000
                     })
-                })}
+                })/*}
                 else{
                     this.$fire({
                         title: "Error",
                         text: "El Contribuyente no esta Registrado",
                         type: "error",})
                 }
-                
+                */
             },
 
             buscar(){

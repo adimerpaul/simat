@@ -252,7 +252,7 @@ class InmController extends Controller
         ->where('comun',$bus)
         ->count();
 
-        if($cont>0){
+        //if($cont>0){
         $inmueble=array(
         'flag_inmu'=>$request->flaginmu,
         'cod_barrio'=>$request->codbarrio,
@@ -339,7 +339,7 @@ class InmController extends Controller
             $log->iduser=Auth::user()->id;
             $log->nombre=Auth::user()->username;
             $log->save();
-        }
+        
         
     
         }
