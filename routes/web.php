@@ -35,6 +35,10 @@ Route::get('/inmujuridico', function () {
     return view('home');
 })->middleware('auth');
 
+Route::get('/listado', function () {
+    return view('home');
+})->middleware('auth');
+
 Route::get('/buscar', function () {
     return view('home');
 })->middleware('auth');

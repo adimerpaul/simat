@@ -112,6 +112,12 @@
                                     >
                                         <a class="dropdown-item" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">Juridico</a>
                                     </router-link>
+                                    <router-link
+                                    to="/listado"
+                                    v-slot="{ href, route, navigate, isActive, isExactActive }"
+                                >
+                                    <a class="dropdown-item" :href="href" @click="navigate" :class="[isActive && 'active', isExactActive && '']">Listado</a>
+                                </router-link>
                                 </div>
                             </li>
                         @if (Auth::user()->id==99999)

@@ -14,6 +14,7 @@ import modcontrib from './components/modcontrib';
 import inmueble from './components/inmueble';
 import home from './components/ExampleComponent';
 import conjuridico from "./components/conjuridico";
+import listado from "./components/listado";
 const routes = [
     { path: '/home', component: home },
     { path: '/contribuyente', component: contribuyente },
@@ -21,6 +22,7 @@ const routes = [
     { path: '/buscar', component: modcontrib },
     { path: '/inmujuridico', component: inmujuridico },
     { path: '/conjuridico', component: conjuridico },
+    { path: '/listado', component: listado },
 ]
 
 const router = new VueRouter({
