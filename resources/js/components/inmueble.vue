@@ -721,7 +721,9 @@ export default {
                     this.modif.antconst=info['ant_const'];
                     this.modif.gestion=info['gestion'];
                     this.modif.CodAut=info['CodAut'];
-                    this.cambio2();
+                   if(this.modif.var1==3)
+                    {$('#areadept2').css("display","");
+                    }
 
                 }) 
             }
