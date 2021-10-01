@@ -719,7 +719,16 @@ export default {
                     this.modif.gestion=info['gestion'];
                     this.modif.CodAut=info['CodAut'];
                     console.log(this.modif);
-                    this.cambio2();
+                if(this.modif.var1==3)
+                    {$('#areadept2').css("display","");
+                    }
+                else
+                    $('#areadept2').css("display","none");
+                if(this.modif.var1!=2)
+                    $('#areaconst2').css("display","");
+                else
+                    {$('#areaconst2').css("display","none");                    
+                    }
 
                 }) 
             }
