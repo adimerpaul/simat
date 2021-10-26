@@ -182,10 +182,10 @@
                     <option value="2">ADOQUIN</option>
                     <option value="3">CEMENTO</option>
                     <option value="4">LOSETA</option>
-                    <option value="4">PIEDRA</option>
-                    <option value="5">RIPIO</option>
-                    <option value="6">TIERRA</option>
-                    <option value="7">LADRILLO</option>
+                    <option value="5">PIEDRA</option>
+                    <option value="6">RIPIO</option>
+                    <option value="7">TIERRA</option>
+                    <option value="8">LADRILLO</option>
                 </select>
             </div>
         </div>
@@ -385,10 +385,10 @@
                             <option value="2">ADOQUIN</option>
                             <option value="3">CEMENTO</option>
                             <option value="4">LOSETA</option>
-                            <option value="4">PIEDRA</option>
-                            <option value="5">RIPIO</option>
-                            <option value="6">TIERRA</option>
-                            <option value="7">LADRILLO</option>
+                            <option value="5">PIEDRA</option>
+                            <option value="6">RIPIO</option>
+                            <option value="7">TIERRA</option>
+                            <option value="8">LADRILLO</option>
                         </select>
                     </div>
                 </div>
