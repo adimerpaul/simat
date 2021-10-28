@@ -19,7 +19,7 @@ class InmController extends Controller
      */
     public function index()
     {
-        
+
 
     }
 
@@ -50,14 +50,13 @@ class InmController extends Controller
         if((DB::table('pm01inmu')->where('comun',$com)->count())>0)
         {
             //$num=trim(Inm::where('comun',$com)->max('cantidad'));
-            $num2=DB::SELECT("select max(CONVERT (substr(trim(cantidad),LENGTH (trim(comun))+1),int))
-            from pm01inmu where comun='$com'");
-            
+//            $num2=DB::SELECT("select max(CONVERT (substr(trim(cantidad),LENGTH (trim(comun))+1),int))
+//            from pm01inmu where comun='$com'");
             //$num1=strlen(trim($com));
             //$num2=intval(substr($num,$num1) + 1);
-            $num2++;
+            $num2=100;
             //$num2= intval(substr($num,strlen($num)-2) + 1) ;
-            //echo $num2; 
+            //echo $num2;
             //exit;
         }
         else $num2=1;
@@ -66,7 +65,7 @@ class InmController extends Controller
         $inmueble->complemento=strtoupper($complemento);
         if($num2<10)
             $inmueble->cantidad=strtoupper($com.'0'.$num2);
-        else    
+        else
             $inmueble->cantidad=strtoupper($com.$num2);
         $inmueble->flag_inmu=$request->flaginmu;
         $inmueble->gestion=0;
@@ -76,22 +75,22 @@ class InmController extends Controller
         $inmueble->nombrecall=strtoupper($request->nombrecall);
         if($request->numcasa==null)
             $variable='';
-        else 
+        else
             $variable=$request->numcasa;
         $inmueble->numcasa=$variable;
         if($request->bloque==null)
             $variable='';
-        else 
+        else
             $variable=$request->bloque;
         $inmueble->bloque=$variable;
         if($request->piso==null)
             $variable='';
-        else 
+        else
             $variable=$request->piso;
         $inmueble->piso=$variable;
         if($request->numdpto==null)
             $variable='';
-        else 
+        else
             $variable=$request->numdpto;
         $inmueble->numdpto=$variable;
 
@@ -100,18 +99,18 @@ class InmController extends Controller
 
         if($request->manzano==null)
             $variable='';
-        else 
+        else
             $variable=$request->manzano;
         $inmueble->manzano=$variable;
         if($request->lote==null)
             $variable='';
-        else 
+        else
             $variable=$request->lote;
         $inmueble->lote=$variable;
         if($request->sublote==null)
             $variable='';
-        else 
-            $variable=$request->sublote; 
+        else
+            $variable=$request->sublote;
         $inmueble->sublote=$variable;
 
         $inmueble->descrip=strtoupper($request->descrip);
@@ -168,7 +167,7 @@ class InmController extends Controller
         $inmueble->hora_reg=date('H:i:s');
         if($request->var1=='2' || $request->var1==2)
             $inmueble->control='T';
-        else    
+        else
             $inmueble->control='F';
         $inmueble->n_informe='';
         $inmueble->controlex='F';
@@ -182,7 +181,7 @@ class InmController extends Controller
         $resultado=$inmueble->save();
         //echo 1;
         //exit;
-        
+
         if($resultado){
             if($request->flaginmu=='N')
             $cont=DB::table('pm01cont')
@@ -193,7 +192,7 @@ class InmController extends Controller
             $cont=DB::table('pmjucont')
             ->where('comun',$com)
             ->update(['act_inmu'=>'A']);
-            
+
             $log=new Log();
             $log->actividad='Registro Inm '.$inmueble->cantidad;
             $log->iduser=Auth::user()->id;
@@ -205,7 +204,7 @@ class InmController extends Controller
 
     /**
      * Display the specified resource.
-     * 
+     *
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -214,10 +213,10 @@ class InmController extends Controller
     public function show($comun,$complemento=null)
     {
         if($complemento == null||$complemento=='')
-            $bus=$comun;  
+            $bus=$comun;
         else
             $bus=$comun.'-'.$complemento;
-        return Inm::where('comun',$bus)->orderBy('cantidad','asc')->get(); 
+        return Inm::where('comun',$bus)->orderBy('cantidad','asc')->get();
     }
 
     /**
@@ -264,22 +263,22 @@ class InmController extends Controller
         'nombrecall'=>strtoupper($request->nombrecall));
         if($request->numcasa==null)
             $variable='';
-        else 
+        else
             $variable=$request->numcasa;
         $inmueble['numcasa']=$variable;
         if($request->bloque==null)
             $variable='';
-        else 
+        else
             $variable=$request->bloque;
         $inmueble['bloque']=$variable;
         if($request->piso==null)
             $variable='';
-        else 
+        else
             $variable=$request->piso;
         $inmueble['piso']=$variable;
         if($request->numdpto==null)
             $variable='';
-        else 
+        else
             $variable=$request->numdpto;
         $inmueble['numdpto']=$variable;
         $inmueble['zona']=$request->zona;
@@ -287,18 +286,18 @@ class InmController extends Controller
 
         if($request->manzano==null)
             $variable='';
-        else 
+        else
             $variable=$request->manzano;
         $inmueble['manzano']=$variable;
         if($request->lote==null)
             $variable='';
-        else 
+        else
             $variable=$request->lote;
         $inmueble['lote']=$variable;
         if($request->sublote==null)
             $variable='';
-        else 
-            $variable=$request->sublote; 
+        else
+            $variable=$request->sublote;
         $inmueble['sublote']=$variable;
 
         $inmueble['descrip']=$request->descrip;
@@ -331,7 +330,7 @@ class InmController extends Controller
         $inmueble['ant_const']= $request->antconst;
         $inmueble['gestion']= $request->gestion;
         $inmueble['cod_caja']=Auth::user()->username;
-        
+
         $resultado=DB::table('pm01inmu')
         ->where('CodAut',$codaut)
         ->update($inmueble);
@@ -342,9 +341,9 @@ class InmController extends Controller
             $log->iduser=Auth::user()->id;
             $log->nombre=Auth::user()->username;
             $log->save();
-        
-        
-    
+
+
+
         }
     }
 
@@ -360,17 +359,17 @@ class InmController extends Controller
     }
 
     public function datoinm($cantidad){
-        return Inm::where('CodAut',$cantidad)->get(); 
+        return Inm::where('CodAut',$cantidad)->get();
 
     }
 
     public function validar($comun,$complemento=null){
 
         if($complemento == 'null' || $complemento == null)
-            $bus=$comun;    
-        else 
+            $bus=$comun;
+        else
             $bus=$comun.'-'.$complemento;
         return DB::table('pm01cont')->where('comun',$comun)->count();
-        
+
     }
 }
