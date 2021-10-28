@@ -50,11 +50,11 @@ class InmController extends Controller
         if((DB::table('pm01inmu')->where('comun',$com)->count())>0)
         {
             //$num=trim(Inm::where('comun',$com)->max('cantidad'));
-//            $num2=DB::SELECT("select max(CONVERT (substr(trim(cantidad),LENGTH (trim(comun))+1),int))
-//            from pm01inmu where comun='$com'");
+            $num2=DB::SELECT("select max(CONVERT (substr(trim(cantidad),LENGTH (trim(comun))+1),int))
+            from pm01inmu where comun='$com'");
             //$num1=strlen(trim($com));
             //$num2=intval(substr($num,$num1) + 1);
-            $num2=100;
+            $num2++;
             //$num2= intval(substr($num,strlen($num)-2) + 1) ;
             //echo $num2;
             //exit;
