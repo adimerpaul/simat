@@ -54,7 +54,7 @@ class InmController extends Controller
             from pm01inmu where comun='$com'");
             //$num1=strlen(trim($com));
             //$num2=intval(substr($num,$num1) + 1);
-            $num2++;
+            $num2= intval( $num2)+1;
             //$num2= intval(substr($num,strlen($num)-2) + 1) ;
             //echo $num2;
             //exit;
