@@ -218,7 +218,7 @@ class InmController extends Controller
             $bus=$comun;
         else
             $bus=$comun.'-'.$complemento;
-        return Inm::where('comun',$bus)->orderBy('cantidad','asc')->get();
+        return Inm::where('comun',$bus)->where('bandera','<>','2')->orderBy('cantidad','asc')->get();
     }
 
     /**
@@ -321,14 +321,17 @@ class InmController extends Controller
             $inmueble['telefono']='S';
         else
             $inmueble['telefono']='N';
-
-        $inmueble['superficie']=$request->superficie;
+        
+        if(Auth::user()->username == 'AMQUISPAYA')
+        {
+            $inmueble['superficie']=$request->superficie;
+            $inmueble['sup_const']=$request->supconst;
+        }
         $inmueble['inclinac']=$request->inclinac;
 
         $inmueble['viv_unifa']=$request->vivunifa;
         if($request->vivunifa==null)
             $inmueble['viv_unifa']='';
-        $inmueble['sup_const']=$request->supconst;
         $inmueble['ant_const']= $request->antconst;
         $inmueble['gestion']= $request->gestion;
         $inmueble['cod_caja']=Auth::user()->username;
