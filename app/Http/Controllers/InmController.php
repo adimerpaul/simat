@@ -218,7 +218,11 @@ class InmController extends Controller
             $bus=$comun;
         else
             $bus=$comun.'-'.$complemento;
-        return Inm::where('comun',$bus)->where('bandera','<>','2')->orderBy('cantidad','asc')->get();
+        if(Auth::user()->username == 'AMQUISPAYA')
+            return Inm::where('comun',$bus)->orderBy('cantidad','asc')->get();
+        else {
+            return Inm::where('comun',$bus)->where('bandera','<>','2')->orderBy('cantidad','asc')->get();
+        }
     }
 
     /**
