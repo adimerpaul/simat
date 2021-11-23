@@ -480,6 +480,7 @@ export default {
                 validar:false,
                 bandera:0,
                 msg:'',
+                parametro:{}
 
             }
         },
@@ -503,7 +504,9 @@ export default {
                 this.dato.comun=this.dato2.comun;
                 this.dato.complemento=this.dato2.complemento;
                 //console.log(this.dato);
-                axios.post('/registrar',this.dato).then(res=>{
+                this.parametro=this.dato;
+                this.dato={}
+                axios.post('/registrar',this.parametro).then(res=>{
                     console.log(res.data);
                     //return false;
                   this.$fire({
@@ -513,6 +516,7 @@ export default {
                         timer: 3000
                     })
                     this.dato={};
+                    this.parametro={};
                     $('#exampleModal').modal('hide');
                     this.buscar();
 

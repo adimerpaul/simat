@@ -129,6 +129,7 @@
         data:function(){
             return {
                 dato:{},
+                parametro:{},
                 barrio:[],
                 ham:[],
             }
@@ -144,7 +145,9 @@
         },
         methods:{
             guardar(){
-                axios.post('/guardarj',this.dato).then(res=>{
+                this.parametro=this.dato;
+                    this.dato={};
+                axios.post('/guardarj',this.parametro).then(res=>{
                     // console.log('Guardado correctamente');
                     this.$fire({
                         title: "Guardado",
@@ -153,6 +156,7 @@
                         timer: 3000
                     })
                     this.dato={};
+                    this.parametro={};
                 }).catch(e=>{
                     // console.log(e.response.data.message);
                     this.$fire({
